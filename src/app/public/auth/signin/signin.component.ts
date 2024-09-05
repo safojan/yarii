@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { DatetimeHelper } from 'src/app/_core/helpers/datetime.helper';
 import { CommonService } from 'src/app/_core/services/common.service';
-import { AdminRoutes } from 'src/app/admin/admin.routes';
-import { AppRoutes } from 'src/app/app.routes';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import { Images } from 'src/assets/data/images';
 import { AlertType } from '../../../shared/components/alert/alert.type';
 import { PublicRoutes } from '../../public.routes';
+import { AuthService } from '../auth.service';
+import { AuthResponse } from '../auth.response';
+import { Signin } from './signin.model';
 
 @Component({
   selector: 'app-signin',
@@ -31,20 +31,26 @@ export class SigninComponent {
   });
 
   constructor(
+    private authservice: AuthService,
     public commonService: CommonService,
-    private formBuilder: FormBuilder,
-    private router: Router
+    private formBuilder: FormBuilder
   ) {}
   protected readonly AlertType = AlertType;
 
   protected onFormSubmitHandler = (event: SubmitEvent) => {
     event.preventDefault();
     this.isLoading = true;
-
-    setTimeout(() => {
-      this.isLoading = false;
-      this.router.navigate([AppRoutes.Admin, AdminRoutes.Dashboard]);
-    }, 3000);
+    const signinData = this.signInForm.value as Signin;
+    this.authservice.signIn(signinData).subscribe(
+      (response: AuthResponse) => {
+        this.isLoading = false;
+        localStorage.setItem('token', response.token);
+      },
+      (error) => {
+        this.isLoading = false;
+        this.serverErrors = error.error.errors;
+      }
+    );
   };
 
   protected onAlertCloseHandler = (e: any) => {

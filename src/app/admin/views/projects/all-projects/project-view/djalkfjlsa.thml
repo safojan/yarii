@@ -1,0 +1,38 @@
+
+            
+    <div class="relative cursor-pointer dark:text-white">
+	<div class="absolute top-2 right-2">
+              <button
+                class="text-gray-700 focus:outline-none"
+                (click)="toggleDropdown($event)"
+              >
+                <i class="bi bi-three-dots-vertical"></i>
+              </button>
+              <ul
+                class="dropdown-menu absolute right-0 mt-2 w-40 bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 hidden"
+              >
+                <li>
+                  <button
+                    class="text-gray-700 focus:outline-none"
+                    value="{{ Milstone.id }}"
+                  >
+                    Start Task
+                  </button>
+                </li>
+              </ul>
+            </div>
+        <span class="absolute top-0 left-0 w-full h-full mt-1 ml-1 bg-indigo-500 rounded-lg dark:bg-gray-200"></span>
+        <div
+            class="relative p-6 bg-white dark:bg-gray-800 border-2 border-indigo-500 dark:border-gray-300 rounded-lg hover:scale-105 transition duration-500">
+            <div class="flex items-center">
+                <span class="text-xl">😎</span>
+                <h3 class="my-2 ml-3 text-lg font-bold text-gray-800 dark:text-white"> {{Milstone.title}} </h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-300">
+                Milstone.description
+            </p>
+        </div>
+		 <span class="text-xs text-gray-400">{{
+                Milstone.createdAt | date : "d MMM"
+              }}</span>
+    </div>

@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminRoutes, ElementRoutes, SettingRoutes } from './admin.routes';
+import {
+  AdminRoutes,
+  ElementRoutes,
+  ProjectRoutes,
+  SettingRoutes,
+} from './admin.routes';
 import { AdminPageNotFoundComponent } from './views/admin-page-not-found/admin-page-not-found.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { AdminAlertComponent } from './views/elements/alert/admin-alert.component';
@@ -13,7 +18,12 @@ import { EventsComponent } from './views/events/events.component';
 import { TestComponent } from './views/events/test/test.component';
 import { ProfileComponent } from './views/settings/profile/profile.component';
 import { UsersComponent } from './views/settings/users/users.component';
-
+import { ProjectsContainerComponent } from './views/projects/all-projects/layout/projects/projects.component';
+import { AllProjectsComponent } from './views/projects/all-projects/all-projects.component';
+import { ProjectAddComponent } from './views/projects/all-projects/project-add/project-add.component';
+import { ProjectTypesAddComponent } from './views/projects/all-projects/project-types-add/project-types-add.component';
+import { ProjectEditComponent } from './views/projects/all-projects/project-edit/project-edit.component';
+import { ProjectViewComponent } from './views/projects/all-projects/project-view/project-view.component';
 
 const routes: Routes = [
   {
@@ -25,6 +35,38 @@ const routes: Routes = [
     title: 'Dashboard',
     path: AdminRoutes.Dashboard,
     component: DashboardComponent,
+  },
+  {
+    title: 'Projects',
+    path: AdminRoutes.Projects,
+    component: ProjectsContainerComponent,
+    children: [
+      {
+        title: 'projects',
+        path: '',
+        component: AllProjectsComponent,
+      },
+      {
+        title: 'Add Project',
+        path: ProjectRoutes.Add,
+        component: ProjectAddComponent,
+      },
+      {
+        title: 'Add Project Type',
+        path: ProjectRoutes.AddType,
+        component: ProjectTypesAddComponent,
+      },
+      {
+        title: 'Edit Project',
+        path: ProjectRoutes.Edit,
+        component: ProjectEditComponent,
+      },
+      {
+        title: 'View Project',
+        path: ProjectRoutes.View,
+        component: ProjectViewComponent,
+      },
+    ],
   },
   {
     title: 'Events',

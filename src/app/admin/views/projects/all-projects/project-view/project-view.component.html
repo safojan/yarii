@@ -1,0 +1,262 @@
+<div class="p-4">
+  <!-- Project Details -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+    <!-- //goal amaount -->
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-semibold mb-2">Goal Amount</h3>
+      <p class="text-2xl font-bold">$ {{ project.goalAmount }}</p>
+      <p class="text-sm text-gray-500">82 %</p>
+    </div>
+    <!-- //raised amount -->
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-semibold mb-2">Raised Amount</h3>
+      <p class="text-2xl font-bold">$ {{ project.raisedAmount }}</p>
+      <p class="text-sm text-gray-500">82%</p>
+    </div>
+    <!-- project type -->
+    <div class="p-4 bg-white rounded shadow">
+      <h3 class="text-lg font-semibold mb-2">Project Type</h3>
+      <p class="text-2xl font-bold">Education Development</p>
+      <p class="text-sm text-gray-500">{{ project.typeId }}</p>
+    </div>
+  </div>
+
+  <!-- Project Info -->
+  <div class="bg-white p-4 rounded shadow mb-4">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xl font-bold">{{ project.name }}</h2>
+      <span class="px-3 py-1 bg-blue-500 text-white rounded">{{
+        project.statusId == 2 ? "In Progress" : "Pending"
+      }}</span>
+    </div>
+    <p class="mb-4">{{ project.description }}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div>
+        <h3 class="font-semibold">Assignees</h3>
+        <div class="flex space-x-2">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Assignee"
+            class="rounded-full w-10 h-10"
+          />
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Assignee"
+            class="rounded-full w-10 h-10"
+          />
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Assignee"
+            class="rounded-full w-10 h-10"
+          />
+        </div>
+      </div>
+      <div>
+        <h3 class="font-semibold">CreatedBy</h3>
+        <p>Safdar Jan</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Created</h3>
+        <p>{{ project.createdAt | date : "d MMMM yyyy" }}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Start</h3>
+        <p>{{ project.startDate | date : "d MMMM yyyy" }}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">End</h3>
+        <p>{{ project.endDate | date : "d MMMM yyyy" }}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Budget</h3>
+        <p>${{ project.goalAmount | number : "1.0-2" }}</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Status</h3>
+        <span class="px-3 py-1 bg-blue-500 text-white rounded">{{
+          project.statusId == 2 ? "In Progress" : "Pending"
+        }}</span>
+      </div>
+      <div>
+        <h3 class="font-semibold">Logged</h3>
+        <p>63h</p>
+      </div>
+      <div>
+        <h3 class="font-semibold">Estimated</h3>
+        <p>120h</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card p-4">
+  <div class="flex justify-end">
+    <button class="btn btn-primary">Add Milestone</button>
+  </div>
+  <div>
+    <h3 class="text-xl font-bold mb-4">Milstones For {{ project.name }}</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Task Column -->
+      <div>
+        <span
+          class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+          >UPCOMMING</span
+        >
+        <div class="space-y-2">
+          <div
+            *ngFor="let Milstone of getUpcomingMilestones()"
+            class="p-4 bg-blue-100 shadow-md hover:bg-blue-200 rounded-2xl relative"
+          >
+            <div class="absolute top-2 right-2">
+              <button
+                class="text-gray-700 focus:outline-none"
+                (click)="toggleDropdown($event)"
+              >
+                <i class="bi bi-arrow-right-circle-fill"></i>
+              </button>
+              <ul
+                class="dropdown-menu absolute right-0 mt-2 w-40 bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 hidden"
+              >
+                <li>
+                  <button
+                    class="text-gray-700 focus:outline-none"
+                    value="{{ Milstone.id }}"
+                  >
+                    Start Task
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <h5 class="font-semibold">{{ Milstone.title }}</h5>
+            <p class="text-sm text-gray-500">{{ Milstone.description }}</p>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-xs text-gray-400">{{
+                Milstone.createdAt | date : "d MMM"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span
+          class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+          >In Progress</span
+        >
+        <div class="space-y-2">
+          <div
+            *ngFor="let Milstone of getInProgressMilestones()"
+            class="p-4 bg-green-100 shadow-md hover:bg-green-200 rounded-2xl"
+          >
+            <h5 class="font-semibold">{{ Milstone.title }}</h5>
+            <p class="text-sm text-gray-500">{{ Milstone.description }}</p>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-xs text-gray-400">{{
+                Milstone.createdAt | date : "d MMM"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span
+          class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"
+          >Completed</span
+        >
+        <div class="space-y-2">
+          <div
+            *ngFor="let Milstone of getCompletedMilestones()"
+            class="bg-yellow-100 shadow-md p-4 hover:bg-yellow-200 rounded-2xl"
+          >
+            <h5 class="font-semibold">{{ Milstone.title }}</h5>
+            <p class="text-sm text-gray-500">{{ Milstone.description }}</p>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-xs text-gray-400">{{
+                Milstone.createdAt | date : "d MMM"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card p-4">
+  <div>
+    <h3 class="text-xl font-bold mb-4">Project Tasks Kanban</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- Task Column -->
+      <div>
+        <span
+          class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+          >UPCOMMING</span
+        >
+        <div class="space-y-2">
+          <div
+            *ngFor="let task of getUpcomingTasks()"
+            class="p-4 bg-blue-100 shadow-md hover:bg-blue-200 rounded-2xl relative"
+          >
+            <div class="absolute top-2 right-2">
+              <button
+                class="text-gray-700 focus:outline-none"
+                (click)="movetoinprogress(task.id)"
+              >
+                <i class="bi bi-arrow-right-circle-fill"></i>
+              </button>
+            </div>
+            <h5 class="font-semibold">{{ task.title }}</h5>
+            <p class="text-sm text-gray-500">{{ task.description }}</p>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-xs text-gray-400">{{ task.assignee }}</span>
+              <span class="text-xs text-gray-400">{{
+                task.createdAt | date : "d MMM"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span
+          class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+          >In Progress</span
+        >
+        <div class="space-y-2">
+          <div
+            *ngFor="let task of getInProgressTasks()"
+            class="p-4 bg-green-100 shadow-md hover:bg-green-200 rounded-2xl"
+          >
+            <h5 class="font-semibold">{{ task.title }}</h5>
+            <p class="text-sm text-gray-500">{{ task.description }}</p>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-xs text-gray-400">{{ task.assignee }}</span>
+              <span class="text-xs text-gray-400">{{
+                task.createdAt | date : "d MMM"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <span
+          class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"
+          >Completed</span
+        >
+        <div class="space-y-2">
+          <div
+            *ngFor="let task of getCompletedTasks()"
+            class="bg-yellow-100 shadow-md p-4 hover:bg-yellow-200 rounded-2xl"
+          >
+            <h5 class="font-semibold">{{ task.title }}</h5>
+            <p class="text-sm text-gray-500">{{ task.description }}</p>
+            <div class="flex items-center justify-between mt-2">
+              <span class="text-xs text-gray-400">{{ task.assignee }}</span>
+              <span class="text-xs text-gray-400">{{
+                task.createdAt | date : "d MMM"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

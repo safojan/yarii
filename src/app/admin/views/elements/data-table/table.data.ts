@@ -12,7 +12,7 @@ export interface IColumn {
   width?: number;
   isEditable?: boolean;
   isSortable?: boolean;
-  type?: string | number | boolean ;
+  type?: string | number | boolean;
 }
 
 export class TableData {
@@ -116,22 +116,20 @@ export class TableData {
       price: 29,
     },
   ];
-  public static  readonly columnData: IColumn[] = [
+  public static readonly columnData: IColumn[] = [
     {
       field: 'productname',
       headerName: 'product name',
       width: 25,
-      isEditable: true,
+      isEditable: false,
       isSortable: false,
-      
     },
     {
       field: 'color',
       headerName: 'Color',
-      width: 25,
+      width: 5,
       isEditable: true,
       isSortable: false,
-     
     },
     {
       field: 'category',
@@ -139,7 +137,6 @@ export class TableData {
       width: 25,
       isEditable: true,
       isSortable: false,
-   
     },
     {
       field: 'price',
@@ -147,7 +144,6 @@ export class TableData {
       width: 25,
       isEditable: true,
       isSortable: false,
-  
     },
     {
       field: 'action',
@@ -155,9 +151,8 @@ export class TableData {
       width: 25,
       isEditable: true,
       isSortable: false,
-   
     },
   ];
 
-  public static readonly pageNumber: number[] = [1, 2, 3, 4, 5];
+  public static readonly pageNumber: number[] = [1, 2];
 }

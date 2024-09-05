@@ -1,5 +1,5 @@
 import { Component, ElementRef, Renderer2 } from '@angular/core';
-import { Images } from 'src/assets/data/images';
+import { AuthService } from 'src/app/public/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,16 +7,22 @@ import { Images } from 'src/assets/data/images';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  public userOne: string = Images.users.userOne;
-  
   isOpen: boolean = false;
 
-  constructor(private element: ElementRef, private renderer: Renderer2) {}
+  constructor(
+    private element: ElementRef,
+    private renderer: Renderer2,
+    readonly authService: AuthService
+  ) {}
 
   onClickProfile = () => {
     const profileDropdownList = this.element.nativeElement.querySelector(
       '.profile-dropdown-list'
     );
     this.renderer.setAttribute(profileDropdownList, 'aria-expanded', 'true');
+  };
+
+  onClickLogout = () => {
+    this.authService.signOut();
   };
 }

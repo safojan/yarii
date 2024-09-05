@@ -13,5 +13,5 @@ import { IColumn, IProduct, TableData } from './table.data';
 export class AdminDataTableComponent {
   public products: IProduct[] = TableData.products;
   public pages: number[] = TableData.pageNumber;
-  public columnData:IColumn[] = TableData.columnData
+  public columnData: IColumn[] = TableData.columnData;
 }

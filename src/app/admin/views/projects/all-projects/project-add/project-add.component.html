@@ -1,0 +1,192 @@
+<div [@pageTransition] class="card p-5">
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Add New Project</h1>
+    <form [formGroup]="projectForm">
+      <!-- Project Title -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="name"
+          >Project Title</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="name"
+          type="text"
+          placeholder="Project Title"
+        />
+      </div>
+
+      <!-- Project Description -->
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="description"
+          >Project Description</label
+        >
+        <textarea
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="description"
+          rows="4"
+          placeholder="Project Description"
+        ></textarea>
+      </div>
+
+      <!-- Project Type -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="type_id"
+          >Project Type</label
+        >
+        <select
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="type_id"
+        >
+          <option value="" disabled selected>Select Project Type</option>
+          <option *ngFor="let type of projectTypes" [value]="type.id">
+            {{ type.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Goal Amount -->
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="goal_amount"
+          >Goal Amount</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="goal_amount"
+          type="number"
+          placeholder="Goal Amount"
+        />
+      </div>
+
+      <!-- Raised Amount -->
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="raised_amount"
+          >Raised Amount</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="raised_amount"
+          type="number"
+          placeholder="Raised Amount"
+          value="0"
+        />
+      </div>
+
+      <!-- Project Status -->
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="status_id"
+          >Project Status</label
+        >
+        <select
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="status_id"
+        >
+          <option value="" disabled selected>Select Project Status</option>
+          <option *ngFor="let status of projectStatuses" [value]="status.id">
+            {{ status.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Project Members -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="members"
+          >Project Members</label
+        >
+        <select
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="members"
+          multiple
+        >
+          <option *ngFor="let member of projectMembers" [value]="member.id">
+            {{ member.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Project Start Date -->
+      <div class="mb-4">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="start_date"
+          >Start Date</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="start_date"
+          type="date"
+        />
+      </div>
+
+      <!-- Project End Date -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="end_date"
+          >End Date</label
+        >
+        <input
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          formControlName="end_date"
+          type="date"
+        />
+      </div>
+
+      <!-- Dynamic JSON Field -->
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2"
+          >Project Details</label
+        >
+        <div formArrayName="details" class="space-y-2">
+          <div
+            *ngFor="let detail of details.controls; let i = index"
+            [formGroupName]="i"
+            class="flex space-x-2"
+          >
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              formControlName="key"
+              type="text"
+              placeholder="Key"
+            />
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              formControlName="value"
+              type="text"
+              placeholder="Value"
+            />
+            <button
+              type="button"
+              class="bg-red-500 text-white px-4 py-2 rounded"
+              (click)="removeField(i)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="bg-green-500 text-white px-4 py-2 rounded mt-2"
+          (click)="addField()"
+        >
+          Add Field
+        </button>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex items-center justify-between">
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          <i class="bi bi-save"></i> Save Project
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

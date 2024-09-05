@@ -1,3 +1,4 @@
-export enum AppRoutes{
-    Admin = "admin",
+export enum AppRoutes {
+  Admin = 'admin',
+  Employee = 'employee',
 }

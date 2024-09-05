@@ -6,7 +6,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,9 +18,8 @@ import { AdminRoutes, ElementRoutes, SettingRoutes } from '../../admin.routes';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-
 export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   sidebarIsCollapsed: boolean = true;
   readonly appRoutes = AppRoutes;
@@ -34,14 +33,16 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public readonly commonServices: CommonService,
     private readonly elementRef: ElementRef,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.subMenuToggleHandlerOnRouteChange();
-    setTimeout(() => { this.subMenuToggleHandlerOnPageReload() }, 1);
+    setTimeout(() => {
+      this.subMenuToggleHandlerOnPageReload();
+    }, 1);
   }
 
   ngOnDestroy(): void {
@@ -50,28 +51,31 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   subMenuToggleHandler = (event: MouseEvent): void => {
     const elem = event.target as HTMLElement;
-    const subMenu = elem.closest("a.sub-menu") as Element;
+    const subMenu = elem.closest('a.sub-menu') as Element;
 
     if (subMenu.getAttribute('aria-expanded') == 'false')
       subMenu.setAttribute('aria-expanded', 'true');
-    else
-      subMenu.setAttribute('aria-expanded', 'false');
-  }
+    else subMenu.setAttribute('aria-expanded', 'false');
+  };
 
   subMenuToggleHandlerOnPageReload = (): void => {
-    const elem = this.elementRef.nativeElement.querySelector('[aria-current="page"]')
+    const elem = this.elementRef.nativeElement
+      .querySelector('[aria-current="page"]')
       .closest('ul.sub-menu-item') as Element;
 
     const subMenu = elem?.previousSibling as Element;
 
     subMenu?.setAttribute('aria-expanded', 'true');
-  }
+  };
 
   subMenuToggleHandlerOnRouteChange = (): void => {
     this.routerSubscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        const subMenu = this.elementRef.nativeElement.querySelectorAll(".sub-menu");
-        const elem = this.elementRef.nativeElement.querySelector(`[href='${event.url}']`) as Element;
+        const subMenu =
+          this.elementRef.nativeElement.querySelectorAll('.sub-menu');
+        const elem = this.elementRef.nativeElement.querySelector(
+          `[href='${event.url}']`
+        ) as Element;
 
         if (elem.closest('ul.sub-menu-item')) return;
 
@@ -80,6 +84,6 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
             subMenu.setAttribute('aria-expanded', 'false');
         });
       }
-    })
-  }
+    });
+  };
 }

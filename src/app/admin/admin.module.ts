@@ -10,7 +10,7 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { EventsComponent } from './views/events/events.component';
 import { SettingsModule } from './views/settings/settings.module';
 import { ElementsModule } from './views/elements/elements.module';
-
+import { ProjectsModule } from './views/projects/projects.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { ElementsModule } from './views/elements/elements.module';
     AdminRoutingModule,
     LayoutsModule,
     SettingsModule,
-    ElementsModule
-  ]
+    ElementsModule,
+    ProjectsModule,
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}

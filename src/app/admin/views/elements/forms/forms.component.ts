@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './forms.component.html',
-  styleUrl: './forms.component.css'
+  styleUrl: './forms.component.css',
 })
-export class FormsComponent {
-
-}
+export class FormsComponent {}
