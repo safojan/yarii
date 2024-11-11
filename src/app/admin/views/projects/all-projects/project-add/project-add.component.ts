@@ -7,7 +7,6 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { commentPaths } from 'media-icons';
 import { pageTransition } from 'src/app/shared/utils/animations';
 
 @Component({

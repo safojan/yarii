@@ -40,4 +40,14 @@ testem.log
 .DS_Store
 Thumbs.db
 
+#ignore docker files and images
+Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.debug.yml
+docker-compose.prod.yml
+
+#ignore the backend as its a separate repo in github
+yarri-backend/
+
 

@@ -13,57 +13,56 @@ import { LocalStorageService } from 'src/app/shared/services/localStorage.servic
 //imported for test
 import { NOTYF } from '../../shared/utils/notyf.token';
 import { Notyf } from 'notyf';
+import { RoleService } from 'src/app/_core/services/role.service';
+import { UserService } from 'src/app/_core/services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 
-//R3InjectorError(AppModule)[AuthService -> Notyf -> Notyf]: NullInjectorError: No provider for Notyf
 export class AuthService {
   private endpoints: any = {
-    signin: 'login',
-    signinwithGoogle: 'login/google',
-    signInwithToken: 'login/token',
+    signin: '/auth/login',
   };
 
   constructor(
     private httpClient: HttpClient,
     private navigationservice: NavigationService,
     private localstorageservice: LocalStorageService,
+    private roleService: RoleService,  // Add RoleService here
+    private userService: UserService,
     @Inject(NOTYF) private notyf: Notyf
   ) {}
 
   signIn(data: Signin): Observable<AuthResponse> {
     return this.httpClient.post<AuthResponse>(this.endpoints.signin, data).pipe(
       tap((response) => {
-        this.localstorageservice.put('token', response.token);
-        const user: IUser = this.currentUser() as IUser;
-        const role = user.role;
-        this.navigationservice.navigateByRole(role);
-        this.notyf.dismissAll();
-        this.notyf.success('You have successfully signed in.');
+        if (response.token) {
+          // Store token in local storage
+          this.localstorageservice.put('token', response.token);
+          //call the user service to get the user details
+          this.userService.fetchUserDetails().subscribe();
+
+          // Fetch the role before navigating
+          this.roleService.fetchCurrentUserRole().subscribe(() => {
+            this.navigationservice.navigateByRole();
+            console.log("navigation by role is called");
+
+            // Display success message
+            this.notyf.dismissAll();
+            this.notyf.success('You have successfully signed in.');
+          });
+        } else {
+          this.notyf.error('Invalid credentials');
+        }
       })
     );
   }
 
   signOut() {
     this.localstorageservice.remove('token');
-    this.navigationservice.navigateByRole(null);
+    this.navigationservice.navigateByRole();
     this.notyf.dismissAll();
     this.notyf.success('You have successfully signed out.');
-  }
-
-  currentUser(): IUser | null {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return null;
-    } else {
-      //decode using decoder
-      const user = jwtDecode(token) as IUser;
-      return user;
-    }
-  }
-  signInwithToken() {
-    //sign in with token
   }
 }

@@ -7,20 +7,25 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/public/auth/auth.service';
+import { RoleService } from '../services/role.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IsAdminGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private roleService: RoleService
+    ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    const currentUser = this.authService.currentUser();
-    if (currentUser && currentUser.role === 'admin') {
-      console.log('isadmin router guard is calling ');
+    const currentUserRole = this.roleService.getCurrentUserRole();
+    console.log("Current user role in admin gaurd !!:", currentUserRole);
+    if (currentUserRole && currentUserRole.name === 'Admin') {
       return true;
     }
 

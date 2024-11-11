@@ -26,7 +26,7 @@ export class SigninComponent {
   serverErrors: string[] = [];
 
   signInForm = this.formBuilder.group({
-    username: [''],
+    email: [''],
     password: [''],
   });
 
@@ -43,12 +43,14 @@ export class SigninComponent {
     const signinData = this.signInForm.value as Signin;
     this.authservice.signIn(signinData).subscribe(
       (response: AuthResponse) => {
+        console.log("the reponse : ",response)
         this.isLoading = false;
         localStorage.setItem('token', response.token);
       },
       (error) => {
+        console.log("the error : ",error.message)
         this.isLoading = false;
-        this.serverErrors = error.error.errors;
+        this.serverErrors = error.message;
       }
     );
   };

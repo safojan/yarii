@@ -1,86 +1,65 @@
-<header
-  class="bg-white py-3 px-8 shadow-[0_5px_5px_-5px] shadow-gray-200 sticky top-0 admin-navbar"
->
-  <div class="flex justify-between items-center">
-    <div class="flex justify-start items-center gap-x-3"></div>
-    <div class="flex justify-end items-center gap-x-3">
-      <div class="relative inline-block"></div>
-      <div class="relative inline-block">
-        <button
-          type="button"
-          class="text-xl text-light rounded-full w-10 h-10 transition hover:bg-slate-200"
-        >
+<header class="bg-white py-3 px-8 shadow-[0_5px_5px_-5px] shadow-gray-200 sticky top-0 admin-navbar">
+    <div class="flex justify-between items-center">
+        <div class="flex justify-start items-center gap-x-3"></div>
+        <div class="flex justify-end items-center gap-x-3">
+            <div class="relative inline-block"></div>
+            <div class="relative inline-block">
+                <button type="button" class="text-xl text-light rounded-full w-10 h-10 transition hover:bg-slate-200">
           <i class="bi bi-bell"></i>
         </button>
-      </div>
-      <div class="relative inline-block profile-dropdown">
-        <div class="flex items-center">
-          <button
-            type="button"
-            (click)="onClickProfile()"
-            class="items-center p-3 m-3 flex w-10 h-10 overflow-hidden rounded-full border-2 border-emerald-600 shadow"
-          >
+            </div>
+            <div class="relative inline-block profile-dropdown">
+                <div class="flex items-center">
+                    <button type="button" (click)="onClickProfile()" class="items-center p-3 m-3 flex w-10 h-10 overflow-hidden rounded-full border-2 border-emerald-600 shadow">
             <span class="text-center">
-              {{ authService.currentUser()?.name?.charAt(0) }}
+              {{ this.userService.getCurrentUser()?.name?.charAt(0) }}
             </span>
           </button>
-          <div class="text-left ml-3">
-            <p>{{ authService.currentUser()?.name }}</p>
-            <p class="text-light text-xs">
-              {{ authService.currentUser()?.role }}
-            </p>
-          </div>
-        </div>
+                    <div class="text-left ml-3">
+                        <p>{{ userService.getCurrentUser()?.name }}</p>
+                        <p class="text-light text-xs">
+                            {{ userService.getCurrentUser()?.role }}
+                        </p>
+                    </div>
+                </div>
 
-        <div class="profile-dropdown-list" aria-expanded="false">
-          <div class="flex gap-3 items-center">
-            <div
-              class="flex items-center justify-center rounded-full h-12 w-12 overflow-hidden border-2 border-emerald-600"
-            >
-              {{ authService.currentUser()?.name?.charAt(0) }}
-            </div>
-            <div>
-              <div class="flex gap-1 text-sm font-semibold">
-                <span>{{ authService.currentUser()?.name }}</span>
-                <span class="text-emerald-600">
+                <div class="profile-dropdown-list" aria-expanded="false">
+                    <div class="flex gap-3 items-center">
+                        <div class="flex items-center justify-center rounded-full h-12 w-12 overflow-hidden border-2 border-emerald-600">
+                            {{ userService.getCurrentUser()?.name?.charAt(0) }}
+                        </div>
+                        <div>
+                            <div class="flex gap-1 text-sm font-semibold">
+                                <span>{{ userService.getCurrentUser()?.name }}</span>
+                                <span class="text-emerald-600">
                   <i class="bi bi-check2-circle"></i>
                 </span>
-              </div>
-              <div class="text-xs text-slate-400">
-                {{ authService.currentUser()?.email }}
-              </div>
-            </div>
-          </div>
-          <div class="border-t border-slate-500/30"></div>
-          <div class="flex flex-col text-sm">
-            <a
-              href="#"
-              class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200"
-            >
-              <i class="bi bi-person-circle"></i>
-              <span>Profile</span>
-            </a>
-            <a
-              href="#"
-              class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200"
-            >
-              <i class="bi bi-info-circle"></i>
-              <span>Help Center</span>
-            </a>
-          </div>
-          <div class="border-t border-slate-500/30"></div>
-          <div class="">
-            <button
-              type="button"
-              (click)="onClickLogout()"
-              class="w-full p-2 text-left text-sm text-red-400 font-semibold rounded transition hover:bg-slate-200"
-            >
+                            </div>
+                            <div class="text-xs text-slate-400">
+                                {{ userService.getCurrentUser()?.email }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-500/30"></div>
+                    <div class="flex flex-col text-sm">
+                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Profile</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
+                            <i class="bi bi-info-circle"></i>
+                            <span>Help Center</span>
+                        </a>
+                    </div>
+                    <div class="border-t border-slate-500/30"></div>
+                    <div class="">
+                        <button type="button" (click)="onClickLogout()" class="w-full p-2 text-left text-sm text-red-400 font-semibold rounded transition hover:bg-slate-200">
               <i class="bi bi-power"></i>
               Logout
             </button>
-          </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>

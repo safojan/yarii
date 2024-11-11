@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from '../../shared/services/localStorage.service';
 
@@ -17,6 +19,7 @@ export class RequestsInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const requestUrl: string = environment.apiUrl + request.url;
+
     const accessToken: string = this.localStorageService.get('token');
 
     if (accessToken) {
@@ -25,8 +28,18 @@ export class RequestsInterceptor implements HttpInterceptor {
       });
     }
 
-    request = request.clone({ url: requestUrl });
+    request = request.clone(
+      { url: requestUrl,
+      setHeaders: {
+        'Content-Type': 'application/json', // Set Content-Type
+        'Accept': 'application/json' // Accept JSON responses
+      }
+     }
+    );
 
+    
+console.log("Request Endpoint",request.url);
     return next.handle(request);
   }
 }
+

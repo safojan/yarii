@@ -6,22 +6,23 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/public/auth/auth.service';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    const currentUser = this.authService.currentUser();
-    if (currentUser) {
+
+    if (this.userService.getCurrentUser()) {
       return true;
     }
+    console.log("I am in auth gaurd");
 
     // Navigate to the login page if not authenticated
     this.router.navigate(['/signin'], {
