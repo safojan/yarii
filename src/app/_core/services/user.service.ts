@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { IUser } from 'src/app/shared/interfaces/user.interface';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class UserService {
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) {}
 
   // Fetch user details and return as an Observable
@@ -34,11 +36,36 @@ export class UserService {
     );
   }
 
-  // Get the current user from the cache
+  // Get the current user from the cache (with token validation)
   getCurrentUser(): IUser | null {
+    // First check if token is valid
+    if (!this.tokenService.isTokenValid()) {
+      console.log("Token is invalid or expired, clearing user data");
+      this.user = null;
+      return null;
+    }
+
     console.log("Current user:", this.user);
     return this.user;
   }
 
-  // Ensure the user details are fetched when this service is initialized
+  // Set the current user
+  setCurrentUser(user: IUser | null): void {
+    this.user = user;
+  }
+
+  // Clear user data
+  clearUserData(): void {
+    this.user = null;
+  }
+
+  // Check if user is authenticated (has valid token and user data)
+  isAuthenticated(): boolean {
+    return this.tokenService.isTokenValid() && this.user !== null;
+  }
+
+  // Get user from token if available
+  getUserFromToken(): any {
+    return this.tokenService.getUserFromToken();
+  }
 }
