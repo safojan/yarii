@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError, tap } from 'rxjs/operators';
 import { Irole } from 'src/app/shared/interfaces/user.interface';
 import { UserService } from './user.service';
+import { TokenService } from './token.service';
 
 @Injectable
 ({
@@ -19,7 +20,8 @@ export class RoleService {
 
   constructor(
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private tokenService: TokenService
   ) {}
 
   // Fetch and return the current user role as an Observable
@@ -36,9 +38,42 @@ export class RoleService {
     );
   }
 
-  // Getter to retrieve the current role
+  // Getter to retrieve the current role (with token validation)
   getCurrentUserRole(): Irole | null {
+    // First check if token is valid
+    if (!this.tokenService.isTokenValid()) {
+      console.log("Token is invalid or expired, clearing role data");
+      this.currentUserRole = null;
+      return null;
+    }
+
     console.log("Current user role:", this.currentUserRole);
     return this.currentUserRole;
+  }
+
+  // Set the current user role
+  setCurrentUserRole(role: Irole | null): void {
+    this.currentUserRole = role;
+  }
+
+  // Clear role data
+  clearRoleData(): void {
+    this.currentUserRole = null;
+  }
+
+  // Check if user has specific role
+  hasRole(roleName: string): boolean {
+    const role = this.getCurrentUserRole();
+    return role?.name === roleName;
+  }
+
+  // Check if user is admin
+  isAdmin(): boolean {
+    return this.hasRole('Admin');
+  }
+
+  // Get role from token if available
+  getRoleFromToken(): string | null {
+    return this.tokenService.getUserRoleFromToken();
   }
 }

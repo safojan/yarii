@@ -6,14 +6,20 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, Observable, retry, throwError, timer } from 'rxjs';
 import { NOTYF } from '../../shared/utils/notyf.token';
 import { Notyf } from 'notyf';
 import { IError } from '../../shared/interfaces/error.interface';
+import { TokenService } from '../services/token.service';
 
 @Injectable()
 export class ErrorsInterceptor implements HttpInterceptor {
-  constructor(@Inject(NOTYF) private notyf: Notyf) {}
+  constructor(
+    @Inject(NOTYF) private notyf: Notyf,
+    private router: Router,
+    private tokenService: TokenService
+  ) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -48,19 +54,13 @@ export class ErrorsInterceptor implements HttpInterceptor {
             errorMessage =
               this.extractErrorMessage(error) ||
               'Unauthorized. Please log in again.';
-            this.notyf.error({
-              message: errorMessage,
-              duration: 0,
-            });
+            this.handleAuthenticationError(errorMessage);
             break;
           case 403:
             errorMessage =
               this.extractErrorMessage(error) ||
               'Forbidden. You do not have the required permissions.';
-            this.notyf.error({
-              message: errorMessage,
-              duration: 0,
-            });
+            this.handleAuthorizationError(errorMessage);
             break;
           case 404:
             errorMessage =
@@ -110,5 +110,47 @@ export class ErrorsInterceptor implements HttpInterceptor {
       return serverError ? serverError.message : null;
     }
     return null;
+  }
+
+  /**
+   * Handle 401 Unauthorized errors
+   */
+  private handleAuthenticationError(message: string): void {
+    console.log('ErrorsInterceptor: Handling 401 authentication error');
+    
+    // Clear authentication data
+    this.tokenService.clearAuthData();
+    
+    // Show error message
+    this.notyf.error({
+      message: message,
+      duration: 0,
+    });
+    
+    // Redirect to login page
+    this.router.navigate(['/signin']);
+  }
+
+  /**
+   * Handle 403 Forbidden errors
+   */
+  private handleAuthorizationError(message: string): void {
+    console.log('ErrorsInterceptor: Handling 403 authorization error');
+    
+    // Show error message
+    this.notyf.error({
+      message: message,
+      duration: 0,
+    });
+    
+    // Check if user is authenticated, if not redirect to login
+    if (!this.tokenService.isTokenValid()) {
+      this.tokenService.clearAuthData();
+      this.router.navigate(['/signin']);
+    } else {
+      // User is authenticated but doesn't have permission
+      // Redirect to a safe page or show access denied page
+      this.router.navigate(['/signin']); // or create an access-denied page
+    }
   }
 }

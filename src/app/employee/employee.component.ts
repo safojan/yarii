@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { AuthService } from '../public/auth/auth.service';
 
 @Component({
   selector: 'app-employee',
@@ -8,7 +9,11 @@ import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
 export class employeeComponent {
   title = 'event-bud-frontend';
 
-  constructor(private element: ElementRef, private rendered: Renderer2) {}
+  constructor(
+    private element: ElementRef, 
+    private rendered: Renderer2,
+    private authService: AuthService
+  ) {}
 
   @HostListener('click', ['$event.target']) onClick(e: Element) {
     const profileDropdown = this.element.nativeElement.querySelector(
@@ -21,5 +26,12 @@ export class employeeComponent {
       );
       this.rendered.setAttribute(profileDropdownList, 'aria-expanded', 'false');
     }
+  }
+
+  /**
+   * Handle user logout
+   */
+  logout(): void {
+    this.authService.signOut();
   }
 }
