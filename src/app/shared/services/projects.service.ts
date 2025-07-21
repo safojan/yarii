@@ -26,70 +26,86 @@ export interface ProjectType {
   last_updated?: Date;
 }
 
+export interface ProjectStatus {
+  id: number;
+  name: string;
+  description?: string;
+  date_created?: Date;
+  last_updated?: Date;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsService {
-  private apiUrl = '/api';
   
   // BehaviorSubjects to store project data
   private projectsSubject = new BehaviorSubject<Project[]>([]);
   private projectTypesSubject = new BehaviorSubject<ProjectType[]>([]);
+  private projectStatusesSubject = new BehaviorSubject<ProjectStatus[]>([]);
   
   // Observables that components can subscribe to
   public projects$ = this.projectsSubject.asObservable();
   public projectTypes$ = this.projectTypesSubject.asObservable();
+  public projectStatuses$ = this.projectStatusesSubject.asObservable();
 
-  // Status mapping for numeric status codes
-  private statusMap: Record<number, string> = {
-    10000: 'Draft',
-    10001: 'Cancelled',
-    10002: 'Completed',
-    10003: 'On Hold',
-    10004: 'Active'
-  };
-
-  // Project type mapping
-  private projectTypeMap = {
-    10000: 'Infrastructure',
-    10001: 'Education',
-    10002: 'Healthcare',
-    10003: 'Disaster Relief',
-    10004: 'Community Development'
-  };
-
-  constructor(private http: HttpClient) { }
-
-  // Get status name from ID
-  getStatusName(statusId: number): string {
-    return this.statusMap[statusId] || 'Unknown';
+  constructor(private http: HttpClient) {
+    this.getAllProjectStatuses().subscribe();
+    this.getAllProjectTypes().subscribe();
   }
 
-  // Get project type name from ID
+  // Get status name from ID using fetched statuses
+  getStatusName(statusId: number): string {
+    const statuses = this.projectStatusesSubject.value;
+    if (!statuses || statuses.length === 0) {
+      console.warn('Project statuses not loaded yet when calling getStatusName');
+      return 'Unknown';
+    }
+    const status = statuses.find(s => s.id === statusId);
+    console.log('getStatusName called with:', statusId, 'found:', status);
+    return status ? status.name : 'Unknown';
+  }
+
+  // Get project type name from ID using fetched types
   getProjectTypeName(typeId: number): string {
-    return this.projectTypeMap[typeId as keyof typeof this.projectTypeMap] || 'Unknown';
+    const types = this.projectTypesSubject.value;
+    if (!types || types.length === 0) {
+      console.warn('Project types not loaded yet when calling getProjectTypeName');
+      return 'Unknown';
+    }
+    const type = types.find(t => t.id === typeId);
+    console.log('getProjectTypeName called with:', typeId, 'found:', type);
+    return type ? type.name : 'Unknown';
   }
 
   // Get all projects
   getAllProjects(): Observable<Project[]> {
+    console.log('Fetching all projects');
     return this.http.get<Project[]>(`/projects`).pipe(
       retry(2),
-      tap(projects => this.projectsSubject.next(projects)),
+      tap(projects => {
+        console.log('Projects fetched:', projects);
+        this.projectsSubject.next(projects);
+      }),
       catchError(this.handleError)
     );
   }
 
   // Get project by ID
   getProjectById(id: number): Observable<Project> {
-    return this.http.get<Project>(`${this.apiUrl}/projects/${id}`).pipe(
+    console.log('Fetching project by ID:', id);
+    return this.http.get<Project>(`/projects/${id}`).pipe(
+      tap(project => console.log('Project fetched:', project)),
       catchError(this.handleError)
     );
   }
 
   // Create new project
   createProject(project: Partial<Project>): Observable<Project> {
-    return this.http.post<Project>(`${this.apiUrl}/projects`, project).pipe(
-      tap(() => {
+    console.log('Creating project:', project);
+    return this.http.post<Project>(`/projects`, project).pipe(
+      tap(newProject => {
+        console.log('Project created:', newProject);
         // Refresh the projects list after creating a new project
         this.getAllProjects().subscribe();
       }),
@@ -99,8 +115,10 @@ export class ProjectsService {
 
   // Update project
   updateProject(id: number, project: Partial<Project>): Observable<Project> {
-    return this.http.put<Project>(`${this.apiUrl}/projects/${id}`, project).pipe(
+    console.log('Updating project:', id, project);
+    return this.http.put<Project>(`/projects/${id}`, project).pipe(
       tap(updatedProject => {
+        console.log('Project updated:', updatedProject);
         // Update the project in the local cache
         const currentProjects = this.projectsSubject.value;
         const index = currentProjects.findIndex(p => p.id === id);
@@ -116,8 +134,10 @@ export class ProjectsService {
 
   // Delete project
   deleteProject(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/projects/${id}`).pipe(
+    console.log('Deleting project:', id);
+    return this.http.delete(`/projects/${id}`).pipe(
       tap(() => {
+        console.log('Project deleted:', id);
         // Remove the project from the local cache
         const currentProjects = this.projectsSubject.value;
         const updatedProjects = currentProjects.filter(project => project.id !== id);
@@ -129,9 +149,26 @@ export class ProjectsService {
 
   // Get all project types
   getAllProjectTypes(): Observable<ProjectType[]> {
-    return this.http.get<ProjectType[]>(`${this.apiUrl}/projectTypes`).pipe(
+    console.log('Fetching all project types');
+    return this.http.get<ProjectType[]>(`/projectTypes`).pipe(
       retry(2),
-      tap(projectTypes => this.projectTypesSubject.next(projectTypes)),
+      tap(projectTypes => {
+        console.log('Project types fetched:', projectTypes);
+        this.projectTypesSubject.next(projectTypes);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  // Get all project statuses
+  getAllProjectStatuses(): Observable<ProjectStatus[]> {
+    console.log('Fetching all project statuses');
+    return this.http.get<ProjectStatus[]>(`/statuses`).pipe(
+      retry(2),
+      tap(projectStatuses => {
+        console.log('Project statuses fetched:', projectStatuses);
+        this.projectStatusesSubject.next(projectStatuses);
+      }),
       catchError(this.handleError)
     );
   }
@@ -140,11 +177,10 @@ export class ProjectsService {
   calculateProgress(project: Project): number {
     const raised = parseFloat(project.raisedAmount);
     const goal = parseFloat(project.goalAmount);
-    
+    console.log('Calculating progress for project:', project, 'raised:', raised, 'goal:', goal);
     if (isNaN(raised) || isNaN(goal) || goal === 0) {
       return 0;
     }
-    
     const progress = (raised / goal) * 100;
     return Math.min(Math.round(progress), 100); // Ensure it doesn't exceed 100%
   }
@@ -160,8 +196,7 @@ export class ProjectsService {
       // Server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    
-    console.error(errorMessage);
+    console.error('HTTP Error:', errorMessage, error);
     return throwError(() => new Error(errorMessage));
   }
 }

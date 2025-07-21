@@ -1,0 +1,67 @@
+/* Overlay to cover the whole screen */
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85); /* subtle white overlay, adjust for your theme */
+  z-index: 9999;
+}
+
+.loading {
+  --speed-of-animation: 0.9s;
+  --gap: 6px;
+  --first-color: #e3143e; /* Adjust to your primary theme color if needed */
+  --second-color: #950f4c;
+  --third-color: #f602f6;
+  --fourth-color: #950f4c;
+  --fifth-color: #e3143e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  gap: var(--gap);
+  height: 100px;
+}
+
+.loading span {
+  width: 6px;
+  height: 50px;
+  border-radius: 4px;
+  background: var(--first-color);
+  animation: scale var(--speed-of-animation) ease-in-out infinite;
+  display: block;
+}
+
+.loading span:nth-child(2) {
+  background: var(--second-color);
+  animation-delay: -0.8s;
+}
+
+.loading span:nth-child(3) {
+  background: var(--third-color);
+  animation-delay: -0.7s;
+}
+
+.loading span:nth-child(4) {
+  background: var(--fourth-color);
+  animation-delay: -0.6s;
+}
+
+.loading span:nth-child(5) {
+  background: var(--fifth-color);
+  animation-delay: -0.5s;
+}
+
+@keyframes scale {
+  0%, 40%, 100% {
+    transform: scaleY(0.05);
+  }
+  20% {
+    transform: scaleY(1);
+  }
+}
