@@ -9,40 +9,48 @@ import { CommonService } from './common.service';
   providedIn: 'root',
 })
 export class NavigationService {
-
   constructor(
     private router: Router,
     private roleService: RoleService,
     private commonService: CommonService
   ) {}
 
-  // Wait for role to be fetched before navigating
   navigateByRole(): void {
-    if (this.roleService.getCurrentUserRole()) {
-      console.log("I am in navigate by role");
-      this.navigateToRolePage(this.roleService.getCurrentUserRole());
-    } else {
-      // Fetch the role if not already available
-      this.roleService.fetchCurrentUserRole().subscribe((role: Irole) => {
+    this.roleService.getCurrentUserRole$().subscribe((role) => {
+      if (role) {
+        console.log("I am in navigate by role");
         this.navigateToRolePage(role);
-      });
-    }
+      } else {
+        // If the role is null, try fetching it
+        this.roleService.fetchCurrentUserRole().subscribe((fetchedRole: Irole) => {
+          this.navigateToRolePage(fetchedRole);
+        });
+      }
+    });
   }
 
-  private navigateToRolePage(role: Irole | null) {
-    switch (role?.name) {
+  private navigateToRolePage(role: Irole | null): void {
+    if (!role || !role.name) {
+      console.warn("No role or role name found. Redirecting to root.");
+      this.router.navigate(['/']);
+      return;
+    }
+
+    switch (role.name) {
       case UserRole.Admin:
-        console.log("I am admin");
+        console.log("Navigating as Admin");
         this.router.navigate(['/admin/dashboard']);
         break;
       case UserRole.Employee:
+        console.log("Navigating as Employee");
         this.router.navigate(['/employee/dashboard']);
         break;
       case UserRole.User:
+        console.log("Navigating as User");
         this.router.navigate(['/user/dashboard']);
         break;
       default:
-        console.log("I am in default");
+        console.warn("Unknown role: " + role.name);
         this.router.navigate(['/']);
         break;
     }

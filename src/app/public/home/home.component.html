@@ -1,171 +1,224 @@
-<div class="relative isolate px-6 pt-14 lg:px-8">
+<div class="min-h-screen bg-gray-50">
+  <!-- Hero Section -->
+  <section class="relative isolate px-6 pt-14 lg:px-8 bg-white" [@fadeIn]>
     <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="
-      clip-path: polygon(
-        74.1% 44.1%,
-        100% 61.6%,
-        97.5% 26.9%,
-        85.5% 0.1%,
-        80.7% 2%,
-        72.5% 32.5%,
-        60.2% 62.4%,
-        52.4% 68.1%,
-        47.5% 58.3%,
-        45.2% 34.5%,
-        27.5% 76.7%,
-        0.1% 64.9%,
-        17.9% 100%,
-        27.6% 76.8%,
-        76.1% 97.7%,
-        74.1% 44.1%
-      );
-    "></div>
+      <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
     </div>
-    <div class="mx-auto max-w-2xl py-24">
-        <div class="hidden sm:mb-8 sm:flex sm:justify-center">
+    
+    <div class="mx-auto max-w-7xl py-24">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Content -->
+        <div class="text-left">
+          <div class="hidden sm:mb-8 sm:flex">
             <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                Announcing our next outreach program.
-                <a href="#" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>Read more
-          <span aria-hidden="true">&rarr;</span></a>
+              Announcing our next outreach program.
+              <a href="#" class="font-semibold text-red-600 ml-1">
+                <span class="absolute inset-0" aria-hidden="true"></span>Read more
+                <span aria-hidden="true">&rarr;</span>
+              </a>
             </div>
-        </div>
-        <div class="text-center">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                Making a Difference, One Step at a Time
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-gray-600">
-                Join us in our mission to provide aid, relief, and assistance to those in need around the world. Together, we can create a better future.
-            </p>
-            <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a [routerLink]="'/admin/dashboard'" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Dashboard</a
-        >
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-          >Learn more <span aria-hidden="true">→</span></a
-        >
-      </div>
-    </div>
-  </div>
-  <div
-    class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-    aria-hidden="true"
-  >
-    <div
-      class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-      style="
-        clip-path: polygon(
-          74.1% 44.1%,
-          100% 61.6%,
-          97.5% 26.9%,
-          85.5% 0.1%,
-          80.7% 2%,
-          72.5% 32.5%,
-          60.2% 62.4%,
-          52.4% 68.1%,
-          47.5% 58.3%,
-          45.2% 34.5%,
-          27.5% 76.7%,
-          0.1% 64.9%,
-          17.9% 100%,
-          27.6% 76.8%,
-          76.1% 97.7%,
-          74.1% 44.1%
-        );
-      "
-    ></div>
-  </div>
-</div>
-
-<!-- New Section: About Us -->
-<div class="py-24 bg-gray-100">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">About Us</h2>
-      <p class="mt-4 text-lg leading-8 text-gray-600">
-        We are dedicated to promoting STEM education in Gilgit Baltistan. Our mission is to empower the youth through education and innovation.
-      </p>
-    </div>
-    <div class="mt-16 space-y-16">
-      <div class="flex items-center justify-center gap-x-6">
-        <img src="../../../assets/images/homepage/Cans.jpeg" alt="Image 1" class="h-48 w-48 rounded-full object-cover">
-        <div>
-          <h3 class="text-2xl font-bold text-gray-900">Our Vision</h3>
-          <p class="mt-4 text-lg text-gray-600">
-            To create a future where every child has access to quality STEM education.
+          </div>
+          
+          <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl leading-tight">
+            Share your love<br>
+            <span class="text-gray-600">to make</span><br>
+            <span class="text-gray-600">someone's life</span><br>
+            <span class="text-gray-600">better</span>
+          </h1>
+          
+          <p class="mt-6 text-lg leading-8 text-gray-600">
+            Lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.
           </p>
+          
+          <div class="mt-10 flex items-center gap-x-6">
+            <button class="rounded-md bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-red-500 transition-colors">
+              Donate now
+            </button>
+            <a [routerLink]="'/admin/dashboard'" class="text-sm font-semibold leading-6 text-gray-900 hover:text-red-600 transition-colors">
+              Dashboard <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Right Hero Image -->
+        <div class="relative flex justify-center">
+          <div class="hero-image-container">
+            <div class="w-96 h-96 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center relative overflow-hidden">
+              <img src="../../../assets/images/homepage/Cans.jpeg" alt="Helping others" class="w-80 h-80 rounded-full object-cover">
+              
+              <!-- Floating Cards -->
+              <div class="absolute -top-4 -right-8 bg-white p-3 rounded-lg shadow-lg max-w-xs">
+                <p class="text-xs text-gray-600 mb-2">Total donations</p>
+                <div class="flex -space-x-1">
+                  <div class="w-6 h-6 bg-blue-500 rounded-full border-2 border-white"></div>
+                  <div class="w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+                  <div class="w-6 h-6 bg-purple-500 rounded-full border-2 border-white"></div>
+                </div>
+              </div>
+              
+              <div class="absolute -bottom-6 -left-8 bg-white p-3 rounded-lg shadow-lg">
+                <p class="text-xs text-gray-600 mb-2">Join our volunteer team</p>
+                <div class="flex -space-x-1">
+                  <div class="w-6 h-6 bg-red-500 rounded-full border-2 border-white"></div>
+                  <div class="w-6 h-6 bg-yellow-500 rounded-full border-2 border-white"></div>
+                  <div class="w-6 h-6 bg-indigo-500 rounded-full border-2 border-white"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="flex items-center justify-center gap-x-6">
-        <img src="../../../assets/images/homepage/Essen.jpeg" alt="Image 2" class="h-48 w-48 rounded-full object-cover">
-        <div>
-          <h3 class="text-2xl font-bold text-gray-900">Our Mission</h3>
-          <p class="mt-4 text-lg text-gray-600">
-            To provide resources and opportunities for students to excel in STEM fields.
-          </p>
+    </div>
+  </section>
+
+  <div class="flex">
+    <!-- Main Content -->
+    <div class="flex-1">
+      <!-- Causes Section -->
+      <section class="py-16 bg-white" [@slideInUp]>
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div *ngFor="let cause of causes" class="cause-card p-6 rounded-2xl transition-transform hover:scale-105" [ngClass]="cause.bgColor">
+              <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" [ngClass]="cause.iconBg">
+                <span class="text-2xl">{{ cause.icon }}</span>
+              </div>
+              <p class="text-sm text-gray-600 mb-1">{{ cause.description }}</p>
+              <h3 class="text-lg font-semibold text-gray-900 mb-3">{{ cause.title }}</h3>
+              <a href="#" class="text-red-600 text-sm font-medium hover:text-red-700">{{ cause.details }}</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="py-16 bg-gray-50" [@slideInUp]>
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Images -->
+            <div class="relative">
+              <div class="grid grid-cols-2 gap-4">
+                <img src="../../../assets/images/homepage/Cans.jpeg" alt="Community helping" class="w-full h-48 object-cover rounded-2xl">
+                <img src="../../../assets/images/homepage/Essen.jpeg" alt="Children smiling" class="w-full h-64 object-cover rounded-2xl mt-8">
+              </div>
+              <div class="absolute -bottom-4 -left-4 w-20 h-20 grid grid-cols-6 gap-1">
+                <div *ngFor="let dot of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]" class="w-1 h-1 bg-red-500 rounded-full"></div>
+              </div>
+            </div>
+            
+            <!-- Content -->
+            <div>
+              <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full text-sm text-gray-600 mb-6">
+                <span class="text-red-500">🤝</span>
+                Welcome to Jago
+              </div>
+              
+              <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                A world where <span class="text-red-600">poverty</span><br>
+                will not exists
+              </h2>
+              
+              <p class="text-red-600 font-semibold mb-4">We are the largest crowdfunding</p>
+              
+              <div class="space-y-4 text-gray-600 mb-8">
+                <p>Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur notted adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua lorem ipsum.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+              </div>
+              
+              <div class="flex items-center gap-6">
+                <button class="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+                  Learn more
+                </button>
+                <button class="flex items-center gap-3 text-gray-900 font-semibold">
+                  <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white">
+                    <span class="text-sm">▶</span>
+                  </div>
+                  How we work
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="w-80 bg-white p-6 shadow-lg">
+      <!-- Help Section -->
+      <div class="mb-8">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+            <span class="text-red-600 text-sm">👥</span>
+          </div>
+          <span class="text-sm text-gray-600">We are always where other people need help</span>
+        </div>
+        
+        <div class="grid grid-cols-3 gap-2 mb-6">
+          <img *ngFor="let event of upcomingEvents" [src]="event.image" [alt]="event.title" class="w-full h-16 object-cover rounded-lg">
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<!-- New Section: Our Impact -->
-<div class="py-24">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Impact</h2>
-      <p class="mt-4 text-lg leading-8 text-gray-600">
-        See the difference we've made in the lives of students in Gilgit Baltistan.
-      </p>
-    </div>
-    <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="rounded-lg bg-white p-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-900">Educational Programs</h3>
-        <p class="mt-4 text-lg text-gray-600">
-          We offer various educational programs to foster a love for STEM subjects.
-        </p>
+      <!-- Upcoming Events -->
+      <div class="mb-8">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-red-600">📅</span>
+          <h3 class="font-semibold text-gray-900">Join our upcoming events</h3>
+        </div>
+        <p class="text-sm text-gray-600 mb-4">for contribution</p>
+        
+        <div class="space-y-3">
+          <div *ngFor="let event of upcomingEvents" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+            <img [src]="event.image" [alt]="event.title" class="w-12 h-12 object-cover rounded-lg">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-900">{{ event.title }}</p>
+              <p class="text-xs text-gray-500">{{ event.date }}</p>
+            </div>
+            <div class="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center">
+              <span class="text-white text-xs">→</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="rounded-lg bg-white p-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-900">Community Outreach</h3>
-        <p class="mt-4 text-lg text-gray-600">
-          We engage with local communities to spread awareness about STEM education.
-        </p>
-      </div>
-      <div class="rounded-lg bg-white p-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-900">Scholarships</h3>
-        <p class="mt-4 text-lg text-gray-600">
-          We provide scholarships to deserving students to pursue their dreams.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- New Section: Get Involved -->
-<div class="py-24 bg-gray-100">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Get Involved</h2>
-      <p class="mt-4 text-lg leading-8 text-gray-600">
-        Join us in making a difference. Your support can change lives.
-      </p>
-    </div>
-    <div class="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="rounded-lg bg-white p-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-900">Volunteer</h3>
-        <p class="mt-4 text-lg text-gray-600">
-          Volunteer your time and skills to support our mission.
-        </p>
+      <!-- Statistics -->
+      <div class="mb-8 bg-gradient-to-r from-blue-600 to-purple-600 p-6 rounded-2xl text-white">
+        <p class="text-sm mb-4">We are fundraising for the people and we are fighting against poverty</p>
+        <div class="grid grid-cols-2 gap-4 text-center">
+          <div>
+            <div class="text-2xl font-bold">2K</div>
+            <div class="text-xs opacity-80">Donors</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">1748</div>
+            <div class="text-xs opacity-80">Raised</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">4287</div>
+            <div class="text-xs opacity-80">Projects</div>
+          </div>
+          <div>
+            <div class="text-2xl font-bold">1284</div>
+            <div class="text-xs opacity-80">Volunteers</div>
+          </div>
+        </div>
       </div>
-      <div class="rounded-lg bg-white p-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-900">Donate</h3>
-        <p class="mt-4 text-lg text-gray-600">
-          Your donations help us reach more students and communities.
-        </p>
-      </div>
-      <div class="rounded-lg bg-white p-6 shadow-md">
-        <h3 class="text-2xl font-bold text-gray-900">Partner</h3>
-        <p class="mt-4 text-lg text-gray-600">
-          Partner with us to create lasting impact in STEM education.
-        </p>
+
+      <!-- Latest News -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-red-600">📰</span>
+          <h3 class="font-semibold text-gray-900">Check out our latest news and updates</h3>
+        </div>
+        
+        <div class="space-y-3">
+          <div *ngFor="let news of newsUpdates" class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+            <img [src]="news.image" [alt]="news.title" class="w-12 h-12 object-cover rounded-lg">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-gray-900">{{ news.title }}</p>
+              <p class="text-xs text-gray-500">{{ news.date }}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

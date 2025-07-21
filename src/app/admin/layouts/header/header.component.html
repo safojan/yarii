@@ -1,65 +1,76 @@
 <header class="bg-white py-3 px-8 shadow-[0_5px_5px_-5px] shadow-gray-200 sticky top-0 admin-navbar">
-    <div class="flex justify-between items-center">
-        <div class="flex justify-start items-center gap-x-3"></div>
-        <div class="flex justify-end items-center gap-x-3">
-            <div class="relative inline-block"></div>
-            <div class="relative inline-block">
-                <button type="button" class="text-xl text-light rounded-full w-10 h-10 transition hover:bg-slate-200">
+  <div class="flex justify-between items-center">
+    <div class="flex justify-start items-center gap-x-3">
+      <!-- Left side can be used for breadcrumbs or page title -->
+    </div>
+    
+    <div class="flex justify-end items-center gap-x-3">
+      <!-- Notification Bell -->
+      <div class="relative inline-block">
+        <button type="button" class="notification-btn">
           <i class="bi bi-bell"></i>
+          <span class="notification-badge">3</span>
         </button>
-            </div>
-            <div class="relative inline-block profile-dropdown">
-                <div class="flex items-center">
-                    <button type="button" (click)="onClickProfile()" class="items-center p-3 m-3 flex w-10 h-10 overflow-hidden rounded-full border-2 border-emerald-600 shadow">
-            <span class="text-center">
-              {{ this.userService.getCurrentUser()?.name?.charAt(0) }}
-            </span>
-          </button>
-                    <div class="text-left ml-3">
-                        <p>{{ userService.getCurrentUser()?.name }}</p>
-                        <p class="text-light text-xs">
-                            {{ userService.getCurrentUser()?.role }}
-                        </p>
-                    </div>
-                </div>
+      </div>
 
-                <div class="profile-dropdown-list" aria-expanded="false">
-                    <div class="flex gap-3 items-center">
-                        <div class="flex items-center justify-center rounded-full h-12 w-12 overflow-hidden border-2 border-emerald-600">
-                            {{ userService.getCurrentUser()?.name?.charAt(0) }}
-                        </div>
-                        <div>
-                            <div class="flex gap-1 text-sm font-semibold">
-                                <span>{{ userService.getCurrentUser()?.name }}</span>
-                                <span class="text-emerald-600">
+      <!-- Profile Dropdown -->
+      <div class="relative inline-block profile-dropdown">
+        <div class="flex items-center">
+          <button type="button" (click)="onClickProfile()" class="profile-trigger">
+            <div class="profile-avatar">
+              <span class="avatar-text">{{ this.userService.getCurrentUser()?.name?.charAt(0) }}</span>
+            </div>
+            <div class="profile-info">
+              <p class="profile-name">{{ userService.getCurrentUser()?.name }}</p>
+              <p class="profile-role">{{ userService.getCurrentUser()?.role }}</p>
+            </div>
+            <i class="bi bi-chevron-down profile-arrow"></i>
+          </button>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="profile-dropdown-list" aria-expanded="false">
+          <!-- User Info Header -->
+          <div class="dropdown-header">
+            <div class="dropdown-avatar">
+              {{ userService.getCurrentUser()?.name?.charAt(0) }}
+            </div>
+            <div class="dropdown-user-info">
+              <div class="dropdown-name-section">
+                <span class="dropdown-name">{{ userService.getCurrentUser()?.name }}</span>
+                <span class="verified-badge">
                   <i class="bi bi-check2-circle"></i>
                 </span>
-                            </div>
-                            <div class="text-xs text-slate-400">
-                                {{ userService.getCurrentUser()?.email }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-t border-slate-500/30"></div>
-                    <div class="flex flex-col text-sm">
-                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
-                            <i class="bi bi-person-circle"></i>
-                            <span>Profile</span>
-                        </a>
-                        <a href="#" class="flex items-center gap-3 rounded-md p-2 hover:bg-slate-200">
-                            <i class="bi bi-info-circle"></i>
-                            <span>Help Center</span>
-                        </a>
-                    </div>
-                    <div class="border-t border-slate-500/30"></div>
-                    <div class="">
-                        <button type="button" (click)="onClickLogout()" class="w-full p-2 text-left text-sm text-red-400 font-semibold rounded transition hover:bg-slate-200">
+              </div>
+              <div class="dropdown-email">{{ userService.getCurrentUser()?.email }}</div>
+            </div>
+          </div>
+
+          <div class="dropdown-divider"></div>
+
+          <!-- Menu Items -->
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">
+              <i class="bi bi-person-circle"></i>
+              <span>Profile</span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="bi bi-info-circle"></i>
+              <span>Help Center</span>
+            </a>
+          </div>
+
+          <div class="dropdown-divider"></div>
+
+          <!-- Logout -->
+          <div class="dropdown-logout">
+            <button type="button" (click)="onClickLogout()" class="logout-button">
               <i class="bi bi-power"></i>
               Logout
             </button>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </header>

@@ -1,0 +1,82 @@
+/* Hero Section Enhancements */
+.hero-image-container {
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  /* Cause Cards */
+  .cause-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  
+  .cause-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+  
+  /* Sidebar Styling */
+  .w-80 {
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .w-80 {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero-image-container {
+      margin-top: 2rem;
+    }
+    
+    .hero-image-container .absolute {
+      display: none;
+    }
+    
+    .grid.grid-cols-1.lg\\:grid-cols-2 {
+      grid-template-columns: 1fr;
+    }
+    
+    .text-4xl.sm\\:text-6xl {
+      font-size: 2.5rem;
+    }
+  }
+  
+  /* Animation Enhancements */
+  .cause-card, .hero-image-container .absolute {
+    animation-delay: 0.2s;
+  }
+  
+  /* Smooth Transitions */
+  * {
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  }
+  
+  /* Custom Scrollbar for Sidebar */
+  .w-80::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .w-80::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .w-80::-webkit-scrollbar-thumb {
+    background: #e53e3e;
+    border-radius: 2px;
+  }
+  
+  .w-80::-webkit-scrollbar-thumb:hover {
+    background: #c53030;
+  }

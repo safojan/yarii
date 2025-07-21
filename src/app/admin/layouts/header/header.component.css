@@ -1,11 +1,192 @@
+/* Header */
 .admin-navbar {
-    z-index: 10;
+  z-index: 50;
+  border-bottom: 1px solid #e2e8f0;
 }
 
+/* Notification Button */
+.notification-btn {
+  @apply relative text-xl text-gray-600 rounded-full w-10 h-10 transition-all duration-200;
+  @apply hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center;
+}
+
+.notification-badge {
+  @apply absolute -top-1 -right-1 bg-red-500 text-white text-xs;
+  @apply rounded-full min-w-[1.125rem] h-[1.125rem] flex items-center justify-center;
+  @apply font-semibold shadow-sm;
+}
+
+/* Profile Section */
+.profile-dropdown {
+  @apply relative;
+}
+
+.profile-trigger {
+  @apply flex items-center gap-3 p-2 rounded-xl transition-all duration-200;
+  @apply hover:bg-gray-50 cursor-pointer;
+}
+
+.profile-avatar {
+  @apply flex items-center justify-center rounded-full w-10 h-10 overflow-hidden;
+  @apply border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600;
+  @apply shadow-md;
+}
+
+.avatar-text {
+  @apply text-white font-semibold text-sm;
+}
+
+.profile-info {
+  @apply text-left;
+}
+
+.profile-name {
+  @apply font-medium text-gray-900 text-sm mb-0;
+}
+
+.profile-role {
+  @apply text-gray-500 text-xs mb-0;
+}
+
+.profile-arrow {
+  @apply text-gray-400 text-sm transition-transform duration-200;
+}
+
+/* Dropdown Menu */
 .profile-dropdown-list {
-    @apply absolute top-9 -right-3 mt-2 flex w-60 flex-col gap-3 rounded-xl bg-slate-100 border border-slate-500/30 p-4 shadow-lg transition ease-in-out duration-150
+  @apply absolute top-full right-0 mt-2 flex w-72 flex-col;
+  @apply rounded-xl bg-white border border-gray-200 shadow-xl;
+  @apply transform scale-95 opacity-0 invisible transition-all duration-200;
+  @apply overflow-hidden;
 }
 
-.profile-dropdown-list[aria-expanded=false] {
-    @apply invisible scale-90 opacity-0
+.profile-dropdown-list[aria-expanded="true"] {
+  @apply scale-100 opacity-100 visible;
+}
+
+/* Dropdown Header */
+.dropdown-header {
+  @apply flex items-center gap-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50;
+}
+
+.dropdown-avatar {
+  @apply flex items-center justify-center rounded-full h-14 w-14 overflow-hidden;
+  @apply border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600;
+  @apply text-white font-bold text-lg shadow-md flex-shrink-0;
+}
+
+.dropdown-user-info {
+  @apply flex-1 min-w-0;
+}
+
+.dropdown-name-section {
+  @apply flex items-center gap-2 mb-1;
+}
+
+.dropdown-name {
+  @apply text-gray-900 font-semibold text-base;
+}
+
+.verified-badge {
+  @apply text-blue-500 text-sm;
+}
+
+.dropdown-email {
+  @apply text-gray-600 text-sm;
+}
+
+.dropdown-divider {
+  @apply h-px bg-gray-200;
+}
+
+/* Menu Items */
+.dropdown-menu {
+  @apply py-2;
+}
+
+.dropdown-item {
+  @apply flex items-center gap-3 px-6 py-3 text-gray-700;
+  @apply hover:bg-gray-50 transition-colors duration-150;
+  @apply text-sm no-underline;
+}
+
+.dropdown-item i {
+  @apply text-gray-400 w-4 text-base;
+}
+
+.dropdown-item:hover i {
+  @apply text-gray-600;
+}
+
+/* Logout Section */
+.dropdown-logout {
+  @apply p-2;
+}
+
+.logout-button {
+  @apply w-full flex items-center gap-3 px-4 py-3 text-red-600;
+  @apply hover:bg-red-50 rounded-lg transition-colors duration-150;
+  @apply text-sm font-medium text-left;
+}
+
+.logout-button i {
+  @apply w-4 text-base;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-info {
+    @apply hidden;
+  }
+  
+  .profile-dropdown-list {
+    @apply w-64 right-0;
+  }
+  
+  .dropdown-header {
+    @apply p-4;
+  }
+  
+  .dropdown-avatar {
+    @apply h-12 w-12 text-base;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-navbar {
+    @apply px-4 py-2;
+  }
+  
+  .profile-dropdown-list {
+    @apply w-60;
+  }
+}
+
+/* Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.profile-dropdown-list[aria-expanded="true"] {
+  animation: slideDown 0.2s ease-out;
+}
+
+/* Hover Effects */
+.profile-trigger:hover .profile-arrow {
+  @apply transform rotate-180;
+}
+
+.notification-btn:hover {
+  @apply transform scale-105;
+}
+
+.profile-avatar:hover {
+  @apply transform scale-105;
 }

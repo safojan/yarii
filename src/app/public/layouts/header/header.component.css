@@ -1,6 +1,193 @@
-.navbar-toggler{
+/* .navbar-toggler{
    @apply -m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700
 }
 .nav-link{
    @apply-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover: bg-gray-50
-}
+} */
+
+/* Header Scroll Effect */
+.header-scrolled {
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+   backdrop-filter: blur(10px);
+   background: rgba(255, 255, 255, 0.95);
+ }
+ 
+ /* Navigation Link Hover Effects */
+ .nav-link {
+   position: relative;
+   transition: all 0.3s ease;
+ }
+ 
+ .nav-link::after {
+   content: '';
+   position: absolute;
+   bottom: -4px;
+   left: 0;
+   width: 0;
+   height: 2px;
+   background: #ef4444;
+   transition: width 0.3s ease;
+ }
+ 
+ .nav-link:hover::after,
+ .nav-link.active::after {
+   width: 100%;
+ }
+ 
+ .nav-link.active {
+   color: #ef4444;
+ }
+ 
+ /* Logo Animation */
+ .flex.items-center.space-x-3 {
+   transition: transform 0.3s ease;
+ }
+ 
+ .flex.items-center.space-x-3:hover {
+   transform: scale(1.05);
+ }
+ 
+ /* Mobile Menu Animation */
+ .fixed.inset-y-0.right-0 {
+   animation: slideInRight 0.3s ease-out;
+ }
+ 
+ @keyframes slideInRight {
+   from {
+     transform: translateX(100%);
+   }
+   to {
+     transform: translateX(0);
+   }
+ }
+ 
+ /* Social Icons Hover Effect */
+ .w-8.h-8,
+ .w-10.h-10 {
+   transition: all 0.3s ease;
+ }
+ 
+ .w-8.h-8:hover,
+ .w-10.h-10:hover {
+   transform: translateY(-2px);
+ }
+ 
+ /* Donate Button Pulse Effect */
+ .bg-red-600.hover\\:bg-red-700 {
+   position: relative;
+   overflow: hidden;
+ }
+ 
+ .bg-red-600.hover\\:bg-red-700::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -100%;
+   width: 100%;
+   height: 100%;
+   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+   transition: left 0.5s;
+ }
+ 
+ .bg-red-600.hover\\:bg-red-700:hover::before {
+   left: 100%;
+ }
+ 
+ /* Mobile Menu Backdrop */
+ .fixed.inset-0.z-10 {
+   animation: fadeIn 0.3s ease-out;
+ }
+ 
+ @keyframes fadeIn {
+   from {
+     opacity: 0;
+   }
+   to {
+     opacity: 1;
+   }
+ }
+ 
+ /* Responsive Adjustments */
+ @media (max-width: 768px) {
+   .container {
+     padding-left: 1rem;
+     padding-right: 1rem;
+   }
+   
+   .text-2xl {
+     font-size: 1.5rem;
+   }
+   
+   .h-10 {
+     height: 2rem;
+   }
+ }
+ 
+ /* Top Contact Bar Responsive */
+ @media (max-width: 640px) {
+   .bg-gray-800.text-white.py-2 .hidden.md\\:flex {
+     display: none !important;
+   }
+   
+   .bg-gray-800.text-white.py-2 .flex.items-center.space-x-4 {
+     justify-content: center;
+     width: 100%;
+   }
+ }
+ 
+ /* Smooth Transitions */
+ * {
+   transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+ }
+ 
+ /* Focus States for Accessibility */
+ button:focus,
+ a:focus {
+   outline: 2px solid #ef4444;
+   outline-offset: 2px;
+ }
+ 
+ /* Header Fixed Position Adjustment */
+ header {
+   transition: all 0.3s ease;
+ }
+ 
+ /* Mobile Menu Close Button */
+ .close-menu {
+   transition: all 0.3s ease;
+ }
+ 
+ .close-menu:hover {
+   transform: rotate(90deg);
+ }
+ 
+ /* Navigation Active State */
+ .nav-link.active {
+   font-weight: 600;
+ }
+ 
+ /* Logo Text Gradient Effect */
+ .text-red-600 {
+   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+ }
+ 
+ /* Hover Effects for Mobile Links */
+ @media (max-width: 1024px) {
+   .hover\\:bg-gray-50:hover {
+     background-color: #f9fafb;
+     transform: translateX(4px);
+   }
+ }
+ 
+ /* Header Shadow on Scroll */
+ .shadow-lg {
+   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+ }
+ 
+ /* Smooth Scroll Behavior */
+ html {
+   scroll-behavior: smooth;
+ }
