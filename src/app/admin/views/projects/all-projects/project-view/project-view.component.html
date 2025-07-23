@@ -1,262 +1,288 @@
-<div class="p-4">
-  <!-- Project Details -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-    <!-- //goal amaount -->
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-semibold mb-2">Goal Amount</h3>
-      <p class="text-2xl font-bold">$ {{ project.goalAmount }}</p>
-      <p class="text-sm text-gray-500">82 %</p>
-    </div>
-    <!-- //raised amount -->
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-semibold mb-2">Raised Amount</h3>
-      <p class="text-2xl font-bold">$ {{ project.raisedAmount }}</p>
-      <p class="text-sm text-gray-500">82%</p>
-    </div>
-    <!-- project type -->
-    <div class="p-4 bg-white rounded shadow">
-      <h3 class="text-lg font-semibold mb-2">Project Type</h3>
-      <p class="text-2xl font-bold">Education Development</p>
-      <p class="text-sm text-gray-500">{{ project.typeId }}</p>
-    </div>
-  </div>
-
-  <!-- Project Info -->
-  <div class="bg-white p-4 rounded shadow mb-4">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-xl font-bold">{{ project.name }}</h2>
-      <span class="px-3 py-1 bg-blue-500 text-white rounded">{{
-        project.statusId == 2 ? "In Progress" : "Pending"
-      }}</span>
-    </div>
-    <p class="mb-4">{{ project.description }}</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-gradient-to-b from-blue-50 to-white min-h-screen p-6">
+  <!-- Project Header -->
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8 bg-white rounded-xl shadow-lg p-6">
       <div>
-        <h3 class="font-semibold">Assignees</h3>
-        <div class="flex space-x-2">
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Assignee"
-            class="rounded-full w-10 h-10"
-          />
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Assignee"
-            class="rounded-full w-10 h-10"
-          />
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Assignee"
-            class="rounded-full w-10 h-10"
-          />
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">{{ project.name }}</h1>
+        <span class="inline-block px-4 py-1.5 rounded-full text-sm font-semibold" 
+              [ngClass]="{ 
+                'bg-green-100 text-green-700': project.status_id === 3,
+                'bg-blue-100 text-blue-700': project.status_id === 2,
+                'bg-gray-200 text-gray-700': project.status_id !== 2 && project.status_id !== 3
+              }">
+          {{ project.status_id === 3 ? 'Completed' : project.status_id === 2 ? 'Ongoing' : 'Pending' }}
+        </span>
+      </div>
+      <div class="flex space-x-3 mt-4 md:mt-0">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg shadow-md transition transform hover:scale-105 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+          </svg>
+          Edit
+        </button>
+        <button class="bg-red-50 hover:bg-red-100 text-red-600 px-5 py-2.5 rounded-lg shadow-md transition transform hover:scale-105 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <!-- Project Stats Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center hover:shadow-lg transition-shadow transform hover:-translate-y-1">
+        <div class="p-3 bg-blue-100 rounded-full mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <span class="text-gray-500 text-sm mb-1">Goal Amount</span>
+        <span class="text-2xl font-bold text-blue-700">${{ project.goal_amount | number:'1.0-0' }}</span>
+      </div>
+      <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center hover:shadow-lg transition-shadow transform hover:-translate-y-1">
+        <div class="p-3 bg-green-100 rounded-full mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+        </div>
+        <span class="text-gray-500 text-sm mb-1">Raised Amount</span>
+        <span class="text-2xl font-bold text-green-600">${{ project.raised_amount | number:'1.0-0' }}</span>
+      </div>
+      <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center hover:shadow-lg transition-shadow transform hover:-translate-y-1">
+        <div class="p-3 bg-purple-100 rounded-full mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+        </div>
+        <span class="text-gray-500 text-sm mb-1">Progress</span>
+        <div class="w-full flex flex-col items-center">
+          <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden mb-1">
+            <div class="h-full bg-blue-600 rounded-full transition-all" 
+                [style.width]="((project.raised_amount / project.goal_amount) * 100) + '%'">
+            </div>
+          </div>
+          <span class="text-sm font-semibold text-blue-700">{{ (project.raised_amount / project.goal_amount * 100) | number:'1.0-0' }}%</span>
         </div>
       </div>
-      <div>
-        <h3 class="font-semibold">CreatedBy</h3>
-        <p>Safdar Jan</p>
+      <div class="bg-white rounded-xl shadow-md p-6 flex flex-col items-center hover:shadow-lg transition-shadow transform hover:-translate-y-1">
+        <div class="p-3 bg-indigo-100 rounded-full mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
+        </div>
+        <span class="text-gray-500 text-sm mb-1">Type</span>
+        <span class="text-lg font-semibold text-indigo-600">Education</span>
       </div>
-      <div>
-        <h3 class="font-semibold">Created</h3>
-        <p>{{ project.createdAt | date : "d MMMM yyyy" }}</p>
+    </div>
+
+    <!-- Project Description & Info -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-8 hover:shadow-lg transition-shadow">
+      <div class="mb-6">
+        <h2 class="text-xl font-bold mb-4 text-gray-900 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Project Description
+        </h2>
+        <p class="text-gray-700 leading-relaxed">{{ project.description }}</p>
       </div>
-      <div>
-        <h3 class="font-semibold">Start</h3>
-        <p>{{ project.startDate | date : "d MMMM yyyy" }}</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-gray-100 pt-6">
+        <div class="flex items-center">
+          <div class="p-2 bg-blue-50 rounded-lg mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-gray-500 text-xs">Start Date</span>
+            <span class="block text-gray-900 font-semibold">{{ project.start_date | date:'MMM d, y' }}</span>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="p-2 bg-blue-50 rounded-lg mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-gray-500 text-xs">End Date</span>
+            <span class="block text-gray-900 font-semibold">{{ project.end_date | date:'MMM d, y' }}</span>
+          </div>
+        </div>
+        <div class="flex items-center">
+          <div class="p-2 bg-blue-50 rounded-lg mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+          <div>
+            <span class="block text-gray-500 text-xs">Created By</span>
+            <span class="block text-gray-900 font-semibold">User #{{ project.created_by }}</span>
+          </div>
+        </div>
       </div>
-      <div>
-        <h3 class="font-semibold">End</h3>
-        <p>{{ project.endDate | date : "d MMMM yyyy" }}</p>
+    </div>
+
+    <!-- Kanban Boards -->
+    <div class="mb-8">
+      <h3 class="text-xl font-bold mb-6 text-gray-900 flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+        </svg>
+        Project Milestones
+      </h3>
+      <div class="kanban-container">
+        <div *ngFor="let col of columns" class="kanban-column">
+          <div class="kanban-header"
+            [ngClass]="{
+              'bg-blue-100 text-blue-800 border-blue-300': col === 'upcoming',
+              'bg-purple-100 text-purple-800 border-purple-300': col === 'inprogress',
+              'bg-green-100 text-green-800 border-green-300': col === 'completed'
+            }">
+            <div class="flex items-center">
+              <span *ngIf="col === 'upcoming'" class="kanban-status-icon bg-blue-200 text-blue-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+              <span *ngIf="col === 'inprogress'" class="kanban-status-icon bg-purple-200 text-purple-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+              </span>
+              <span *ngIf="col === 'completed'" class="kanban-status-icon bg-green-200 text-green-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              {{ col === 'upcoming' ? 'Upcoming' : col === 'inprogress' ? 'In Progress' : 'Completed' }}
+              <div class="kanban-count ml-auto">{{ milestoneColumns[col].length }}</div>
+            </div>
+          </div>
+          <div
+            cdkDropList
+            [cdkDropListData]="milestoneColumns[col]"
+            (cdkDropListDropped)="dropMilestone($event)"
+            [cdkDropListConnectedTo]="milestoneDropListIds"
+            [id]="'milestone-' + col"
+            class="kanban-items"
+            [ngClass]="{'empty-container': milestoneColumns[col].length === 0}"
+          >
+            <div
+              *ngFor="let m of milestoneColumns[col]"
+              cdkDrag
+              class="kanban-item"
+              [ngClass]="{
+                'border-blue-200': col === 'upcoming',
+                'border-purple-200': col === 'inprogress',
+                'border-green-200': col === 'completed'
+              }"
+            >
+              <div cdkDragHandle class="kanban-drag-handle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </div>
+              <div class="kanban-item-content">
+                <div class="font-bold text-gray-900 text-lg mb-1">{{ m.title }}</div>
+                <div class="text-xs text-gray-500 mb-2 flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {{ m.created_at | date:'MMM d, y' }}
+                </div>
+                <div class="text-gray-700 text-sm">{{ m.description }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <h3 class="font-semibold">Budget</h3>
-        <p>${{ project.goalAmount | number : "1.0-2" }}</p>
+    </div>
+
+   <!-- Replace the Milestone Kanban section with this fixed version -->
+
+
+<!-- Replace the Task Kanban section with this fixed version -->
+<div class="mb-8">
+  <h3 class="text-xl font-bold mb-6 text-gray-900 flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+    </svg>
+    Project Tasks
+  </h3>
+  <div class="kanban-container">
+    <div *ngFor="let col of columns" class="kanban-column">
+      <div class="kanban-header"
+        [ngClass]="{
+          'bg-blue-100 text-blue-800 border-blue-300': col === 'upcoming',
+          'bg-purple-100 text-purple-800 border-purple-300': col === 'inprogress',
+          'bg-green-100 text-green-800 border-green-300': col === 'completed'
+        }">
+        <div class="flex items-center">
+          <span *ngIf="col === 'upcoming'" class="kanban-status-icon bg-blue-200 text-blue-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </span>
+          <span *ngIf="col === 'inprogress'" class="kanban-status-icon bg-purple-200 text-purple-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </span>
+          <span *ngIf="col === 'completed'" class="kanban-status-icon bg-green-200 text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </span>
+          {{ getColumnDisplayName(col) }}
+          <div class="kanban-count ml-auto">{{ taskColumns[col].length }}</div>
+        </div>
       </div>
-      <div>
-        <h3 class="font-semibold">Status</h3>
-        <span class="px-3 py-1 bg-blue-500 text-white rounded">{{
-          project.statusId == 2 ? "In Progress" : "Pending"
-        }}</span>
-      </div>
-      <div>
-        <h3 class="font-semibold">Logged</h3>
-        <p>63h</p>
-      </div>
-      <div>
-        <h3 class="font-semibold">Estimated</h3>
-        <p>120h</p>
+      <div
+        cdkDropList
+        [cdkDropListData]="taskColumns[col]"
+        (cdkDropListDropped)="dropTask($event)"
+        [cdkDropListConnectedTo]="taskDropListIds"
+        [id]="'task-' + col"
+        class="kanban-items"
+        [ngClass]="{'empty-container': taskColumns[col].length === 0}"
+      >
+        <div
+          *ngFor="let t of taskColumns[col]"
+          cdkDrag
+          class="kanban-item"
+          [ngClass]="{
+            'border-blue-200': col === 'upcoming',
+            'border-purple-200': col === 'inprogress',
+            'border-green-200': col === 'completed'
+          }"
+        >
+          <div cdkDragHandle class="kanban-drag-handle">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </div>
+          <div class="kanban-item-content">
+            <div class="font-bold text-gray-900 text-lg mb-1">{{ t.title }}</div>
+            <div class="text-xs text-gray-500 mb-1 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              {{ t.assignee }}
+            </div>
+            <div class="text-xs text-gray-500 mb-2 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              {{ t.created_at | date:'MMM d, y' }}
+            </div>
+            <div class="text-gray-700 text-sm">{{ t.description }}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-<div class="card p-4">
-  <div class="flex justify-end">
-    <button class="btn btn-primary">Add Milestone</button>
-  </div>
-  <div>
-    <h3 class="text-xl font-bold mb-4">Milstones For {{ project.name }}</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Task Column -->
-      <div>
-        <span
-          class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
-          >UPCOMMING</span
-        >
-        <div class="space-y-2">
-          <div
-            *ngFor="let Milstone of getUpcomingMilestones()"
-            class="p-4 bg-blue-100 shadow-md hover:bg-blue-200 rounded-2xl relative"
-          >
-            <div class="absolute top-2 right-2">
-              <button
-                class="text-gray-700 focus:outline-none"
-                (click)="toggleDropdown($event)"
-              >
-                <i class="bi bi-arrow-right-circle-fill"></i>
-              </button>
-              <ul
-                class="dropdown-menu absolute right-0 mt-2 w-40 bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300 hidden"
-              >
-                <li>
-                  <button
-                    class="text-gray-700 focus:outline-none"
-                    value="{{ Milstone.id }}"
-                  >
-                    Start Task
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <h5 class="font-semibold">{{ Milstone.title }}</h5>
-            <p class="text-sm text-gray-500">{{ Milstone.description }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs text-gray-400">{{
-                Milstone.createdAt | date : "d MMM"
-              }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <span
-          class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
-          >In Progress</span
-        >
-        <div class="space-y-2">
-          <div
-            *ngFor="let Milstone of getInProgressMilestones()"
-            class="p-4 bg-green-100 shadow-md hover:bg-green-200 rounded-2xl"
-          >
-            <h5 class="font-semibold">{{ Milstone.title }}</h5>
-            <p class="text-sm text-gray-500">{{ Milstone.description }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs text-gray-400">{{
-                Milstone.createdAt | date : "d MMM"
-              }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <span
-          class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"
-          >Completed</span
-        >
-        <div class="space-y-2">
-          <div
-            *ngFor="let Milstone of getCompletedMilestones()"
-            class="bg-yellow-100 shadow-md p-4 hover:bg-yellow-200 rounded-2xl"
-          >
-            <h5 class="font-semibold">{{ Milstone.title }}</h5>
-            <p class="text-sm text-gray-500">{{ Milstone.description }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs text-gray-400">{{
-                Milstone.createdAt | date : "d MMM"
-              }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="card p-4">
-  <div>
-    <h3 class="text-xl font-bold mb-4">Project Tasks Kanban</h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <!-- Task Column -->
-      <div>
-        <span
-          class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
-          >UPCOMMING</span
-        >
-        <div class="space-y-2">
-          <div
-            *ngFor="let task of getUpcomingTasks()"
-            class="p-4 bg-blue-100 shadow-md hover:bg-blue-200 rounded-2xl relative"
-          >
-            <div class="absolute top-2 right-2">
-              <button
-                class="text-gray-700 focus:outline-none"
-                (click)="movetoinprogress(task.id)"
-              >
-                <i class="bi bi-arrow-right-circle-fill"></i>
-              </button>
-            </div>
-            <h5 class="font-semibold">{{ task.title }}</h5>
-            <p class="text-sm text-gray-500">{{ task.description }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs text-gray-400">{{ task.assignee }}</span>
-              <span class="text-xs text-gray-400">{{
-                task.createdAt | date : "d MMM"
-              }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <span
-          class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
-          >In Progress</span
-        >
-        <div class="space-y-2">
-          <div
-            *ngFor="let task of getInProgressTasks()"
-            class="p-4 bg-green-100 shadow-md hover:bg-green-200 rounded-2xl"
-          >
-            <h5 class="font-semibold">{{ task.title }}</h5>
-            <p class="text-sm text-gray-500">{{ task.description }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs text-gray-400">{{ task.assignee }}</span>
-              <span class="text-xs text-gray-400">{{
-                task.createdAt | date : "d MMM"
-              }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <span
-          class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300"
-          >Completed</span
-        >
-        <div class="space-y-2">
-          <div
-            *ngFor="let task of getCompletedTasks()"
-            class="bg-yellow-100 shadow-md p-4 hover:bg-yellow-200 rounded-2xl"
-          >
-            <h5 class="font-semibold">{{ task.title }}</h5>
-            <p class="text-sm text-gray-500">{{ task.description }}</p>
-            <div class="flex items-center justify-between mt-2">
-              <span class="text-xs text-gray-400">{{ task.assignee }}</span>
-              <span class="text-xs text-gray-400">{{
-                task.createdAt | date : "d MMM"
-              }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
