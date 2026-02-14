@@ -1,240 +1,255 @@
-<aside>
-  <div class="brand-wrapper">
-    <a href="#" class="brand text-center">
-      <h1 class="flex items-center font-bold text-slate-300">
-        <span class="text-2xl mr-2 bg-green-600 w-8 h-8 rounded-md">S</span>
-        <span class="text-3xl tracking-widest">NGO </span>
-      </h1>
+<aside class="sidebar-container">
+  <div class="sidebar-header">
+    <a href="#" class="brand">
+      <div class="brand-icon">
+        <i class="bi bi-heart-pulse-fill"></i>
+      </div>
+      <span class="brand-text">NGO Admin</span>
     </a>
   </div>
-  <ul class="menu-links">
-    <li>
-      <a
-        [routerLink]="
-          commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Dashboard)
-        "
-        routerLinkActive="active"
-        class="menu-item"
-        ariaCurrentWhenActive="page"
-      >
-        <i class="bi bi-columns-gap"></i>
-        <span>Dashboard</span>
-      </a>
-    </li>
-    <li>
-      <a
-        href="javascript:void(0)"
-        class="menu-item sub-menu"
-        aria-expanded="false"
-        (click)="subMenuToggleHandler($event)"
-      >
-        <i class="bi bi-projector"></i>
-        <span>Projects</span>
-      </a>
-      <ul class="sub-menu-item">
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Projects)
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Projects</span>
-          </a>
-        </li>
-      </ul>
-    </li>
 
-    <li>
-      <a
-        class="menu-item"
-        [routerLink]="
-          commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Events)
-        "
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-      >
-        <i class="bi bi-calendar4-event"></i>
-        <span>Events</span>
-      </a>
-    </li>
-    <li>
-      <a
-        href="javascript:void(0)"
-        class="menu-item sub-menu"
-        aria-expanded="false"
-        (click)="subMenuToggleHandler($event)"
-      >
-        <i class="bi bi-kanban-fill"></i>
-        <span>UI Elements</span>
-      </a>
-      <ul class="sub-menu-item">
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Elements,
-                elementRoutes.Alert
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Alert</span>
-          </a>
-        </li>
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Elements,
-                elementRoutes.Tabs
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Tabs</span>
-          </a>
-        </li>
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Elements,
-                elementRoutes.Modal
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Modal</span>
-          </a>
-        </li>
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Elements,
-                elementRoutes.Buttons
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Buttons</span>
-          </a>
-        </li>
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Elements,
-                elementRoutes.DataTable
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Data Table</span>
-          </a>
-        </li>
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Elements,
-                elementRoutes.Forms
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Forms</span>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a
-        href="javascript:void(0)"
-        class="menu-item sub-menu"
-        aria-expanded="false"
-        (click)="subMenuToggleHandler($event)"
-      >
-        <i class="bi bi-sliders2-vertical"></i>
-        <span>Settings</span>
-      </a>
-      <ul class="sub-menu-item">
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Settings,
-                settingRoutes.Profile
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Profile</span>
-          </a>
-        </li>
-        <li>
-          <a
-            class="menu-item"
-            [routerLink]="
-              commonServices.prepareRoute(
-                appRoutes.Admin,
-                adminRoutes.Settings,
-                settingRoutes.Users
-              )
-            "
-            routerLinkActive="active"
-            ariaCurrentWhenActive="page"
-          >
-            <span>Users</span>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="menu-item" ariaCurrentWhenActive="page">
-            <span>Website</span>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="#" class="menu-item">
-        <i class="bi bi-box-arrow-right"></i>
-        <span>Logout</span>
-      </a>
-    </li>
-  </ul>
+  <nav class="sidebar-nav">
+    <ul class="menu-links">
+      <li class="menu-item-wrapper">
+        <a
+          [routerLink]="
+            commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Dashboard)
+          "
+          routerLinkActive="active"
+          class="menu-item"
+          ariaCurrentWhenActive="page"
+        >
+          <div class="menu-icon">
+            <i class="bi bi-grid-1x2-fill"></i>
+          </div>
+          <span class="menu-text">Dashboard</span>
+        </a>
+      </li>
+
+      <li class="menu-item-wrapper">
+        <a
+          href="javascript:void(0)"
+          class="menu-item sub-menu"
+          aria-expanded="false"
+          (click)="subMenuToggleHandler($event)"
+        >
+          <div class="menu-icon">
+            <i class="bi bi-folder-fill"></i>
+          </div>
+          <span class="menu-text">Projects</span>
+          <i class="bi bi-chevron-down sub-menu-arrow"></i>
+        </a>
+        <ul class="sub-menu-item">
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Projects)
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">All Projects</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="menu-item-wrapper">
+        <a
+          class="menu-item"
+          [routerLink]="
+            commonServices.prepareRoute(appRoutes.Admin, adminRoutes.Events)
+          "
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+        >
+          <div class="menu-icon">
+            <i class="bi bi-calendar-event-fill"></i>
+          </div>
+          <span class="menu-text">Events</span>
+        </a>
+      </li>
+
+      <li class="menu-item-wrapper">
+        <a
+          href="javascript:void(0)"
+          class="menu-item sub-menu"
+          aria-expanded="false"
+          (click)="subMenuToggleHandler($event)"
+        >
+          <div class="menu-icon">
+            <i class="bi bi-palette-fill"></i>
+          </div>
+          <span class="menu-text">UI Elements</span>
+          <i class="bi bi-chevron-down sub-menu-arrow"></i>
+        </a>
+        <ul class="sub-menu-item">
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Elements,
+                  elementRoutes.Alert
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Alert</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Elements,
+                  elementRoutes.Tabs
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Tabs</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Elements,
+                  elementRoutes.Modal
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Modal</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Elements,
+                  elementRoutes.Buttons
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Buttons</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Elements,
+                  elementRoutes.DataTable
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Data Table</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Elements,
+                  elementRoutes.Forms
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Forms</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="menu-item-wrapper">
+        <a
+          href="javascript:void(0)"
+          class="menu-item sub-menu"
+          aria-expanded="false"
+          (click)="subMenuToggleHandler($event)"
+        >
+          <div class="menu-icon">
+            <i class="bi bi-gear-fill"></i>
+          </div>
+          <span class="menu-text">Settings</span>
+          <i class="bi bi-chevron-down sub-menu-arrow"></i>
+        </a>
+        <ul class="sub-menu-item">
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Settings,
+                  settingRoutes.Profile
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Profile</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="menu-item"
+              [routerLink]="
+                commonServices.prepareRoute(
+                  appRoutes.Admin,
+                  adminRoutes.Settings,
+                  settingRoutes.Users
+                )
+              "
+              routerLinkActive="active"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="menu-text">Users</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="menu-item" ariaCurrentWhenActive="page">
+              <span class="menu-text">Website</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a href="#" class="menu-item logout-item">
+      <div class="menu-icon">
+        <i class="bi bi-box-arrow-left"></i>
+      </div>
+      <span class="menu-text">Logout</span>
+    </a>
+  </div>
 </aside>
 
-<div class="collapsible-btn-container">
-  <button id="sidebar-collapse-btn" sidebarCollapse>
-    <div class="w-6 h-16 flex justify-center items-center">
-      <div class="collapsible-icons">
-        <div class="collapsible-top-icon"></div>
-        <div class="collapsible-bottom-icon"></div>
-      </div>
-    </div>
-  </button>
-</div>
+<button class="sidebar-toggle" sidebarCollapse>
+  <i class="bi bi-list"></i>
+</button>

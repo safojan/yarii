@@ -1,19 +1,139 @@
-/* Header */
-.admin-navbar {
-  z-index: 50;
-  border-bottom: 1px solid #e2e8f0;
+/* Modern Header Design */
+.admin-header {
+  @apply bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100;
+}
+
+.header-container {
+  @apply flex justify-between items-center px-4 md:px-6 lg:px-8 py-4;
+}
+
+/* Left Section */
+.header-left {
+  @apply flex items-center gap-4;
+}
+
+.welcome-section {
+  @apply hidden md:block;
+}
+
+.welcome-text {
+  @apply text-xl lg:text-2xl font-bold text-gray-800 mb-1;
+}
+
+.date-text {
+  @apply text-sm text-gray-500;
+}
+
+/* Right Section */
+.header-right {
+  @apply flex items-center gap-3 lg:gap-4;
+}
+
+/* Search Bar */
+.search-container {
+  @apply relative hidden lg:block;
+}
+
+.search-input {
+  @apply w-64 pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl;
+  @apply text-sm text-gray-700 placeholder-gray-400;
+  @apply focus:outline-none focus:border-blue-400 focus:bg-white;
+  @apply transition-all duration-200;
+}
+
+.search-icon {
+  @apply absolute left-3 top-1/2 -translate-y-1/2 text-gray-400;
 }
 
 /* Notification Button */
+.notification-container {
+  @apply relative;
+}
+
 .notification-btn {
-  @apply relative text-xl text-gray-600 rounded-full w-10 h-10 transition-all duration-200;
-  @apply hover:bg-blue-50 hover:text-blue-600 flex items-center justify-center;
+  @apply relative w-10 h-10 rounded-xl bg-gray-50 text-gray-600;
+  @apply hover:bg-blue-50 hover:text-blue-600 hover:scale-105;
+  @apply flex items-center justify-center transition-all duration-200;
+  @apply cursor-pointer border-0;
 }
 
 .notification-badge {
-  @apply absolute -top-1 -right-1 bg-red-500 text-white text-xs;
-  @apply rounded-full min-w-[1.125rem] h-[1.125rem] flex items-center justify-center;
-  @apply font-semibold shadow-sm;
+  @apply absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-500;
+  @apply text-white text-xs font-bold rounded-full;
+  @apply flex items-center justify-center shadow-sm;
+  @apply animate-pulse;
+}
+
+/* Notification Dropdown */
+.notification-dropdown {
+  @apply absolute top-full right-0 mt-2 w-80 md:w-96;
+  @apply bg-white rounded-2xl shadow-2xl border border-gray-100;
+  @apply transform scale-95 opacity-0 invisible transition-all duration-200;
+  @apply overflow-hidden;
+}
+
+.notification-container:hover .notification-dropdown {
+  @apply scale-100 opacity-100 visible;
+}
+
+.notification-header {
+  @apply flex justify-between items-center p-4 border-b border-gray-100;
+}
+
+.notification-header h3 {
+  @apply text-lg font-semibold text-gray-800;
+}
+
+.mark-all-read {
+  @apply text-sm text-blue-600 hover:text-blue-700 font-medium;
+  @apply bg-transparent border-0 cursor-pointer transition-colors;
+}
+
+.notification-list {
+  @apply max-h-80 overflow-y-auto;
+}
+
+.notification-item {
+  @apply flex gap-3 p-4 hover:bg-gray-50 transition-colors duration-150;
+  @apply border-b border-gray-50 last:border-0;
+}
+
+.notification-item.unread {
+  @apply bg-blue-50/30;
+}
+
+.notification-icon {
+  @apply w-10 h-10 rounded-xl bg-blue-100 text-blue-600;
+  @apply flex items-center justify-center flex-shrink-0;
+}
+
+.notification-icon i {
+  @apply text-lg;
+}
+
+.notification-content {
+  @apply flex-1 min-w-0;
+}
+
+.notification-title {
+  @apply text-sm font-semibold text-gray-800 mb-0.5;
+}
+
+.notification-desc {
+  @apply text-xs text-gray-600 mb-1;
+}
+
+.notification-time {
+  @apply text-xs text-gray-400;
+}
+
+.notification-footer {
+  @apply p-3 bg-gray-50 text-center;
+}
+
+.view-all-notifications {
+  @apply text-sm text-blue-600 hover:text-blue-700 font-medium;
+  @apply no-underline transition-colors;
 }
 
 /* Profile Section */
@@ -22,40 +142,45 @@
 }
 
 .profile-trigger {
-  @apply flex items-center gap-3 p-2 rounded-xl transition-all duration-200;
-  @apply hover:bg-gray-50 cursor-pointer;
+  @apply flex items-center gap-3 px-3 py-2 rounded-xl;
+  @apply hover:bg-gray-50 transition-all duration-200;
+  @apply bg-transparent border-0 cursor-pointer;
 }
 
 .profile-avatar {
-  @apply flex items-center justify-center rounded-full w-10 h-10 overflow-hidden;
-  @apply border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600;
-  @apply shadow-md;
+  @apply w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600;
+  @apply flex items-center justify-center text-white font-bold;
+  @apply shadow-md hover:shadow-lg transition-shadow duration-200;
 }
 
 .avatar-text {
-  @apply text-white font-semibold text-sm;
+  @apply text-sm;
 }
 
 .profile-info {
-  @apply text-left;
+  @apply hidden md:block text-left;
 }
 
 .profile-name {
-  @apply font-medium text-gray-900 text-sm mb-0;
+  @apply text-sm font-semibold text-gray-800 leading-tight;
 }
 
 .profile-role {
-  @apply text-gray-500 text-xs mb-0;
+  @apply text-xs text-gray-500;
 }
 
 .profile-arrow {
-  @apply text-gray-400 text-sm transition-transform duration-200;
+  @apply text-gray-400 text-xs transition-transform duration-200;
 }
 
-/* Dropdown Menu */
+.profile-trigger:hover .profile-arrow {
+  @apply rotate-180;
+}
+
+/* Profile Dropdown Menu */
 .profile-dropdown-list {
-  @apply absolute top-full right-0 mt-2 flex w-72 flex-col;
-  @apply rounded-xl bg-white border border-gray-200 shadow-xl;
+  @apply absolute top-full right-0 mt-2 w-72;
+  @apply bg-white rounded-2xl shadow-2xl border border-gray-100;
   @apply transform scale-95 opacity-0 invisible transition-all duration-200;
   @apply overflow-hidden;
 }
@@ -66,13 +191,13 @@
 
 /* Dropdown Header */
 .dropdown-header {
-  @apply flex items-center gap-4 p-6 bg-gradient-to-r from-blue-50 to-purple-50;
+  @apply flex items-center gap-4 p-5 bg-gradient-to-r from-blue-50 to-indigo-50;
 }
 
 .dropdown-avatar {
-  @apply flex items-center justify-center rounded-full h-14 w-14 overflow-hidden;
-  @apply border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-purple-600;
-  @apply text-white font-bold text-lg shadow-md flex-shrink-0;
+  @apply w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600;
+  @apply flex items-center justify-center text-white font-bold text-lg;
+  @apply shadow-lg flex-shrink-0;
 }
 
 .dropdown-user-info {
@@ -84,19 +209,41 @@
 }
 
 .dropdown-name {
-  @apply text-gray-900 font-semibold text-base;
+  @apply text-base font-semibold text-gray-800;
 }
 
 .verified-badge {
-  @apply text-blue-500 text-sm;
+  @apply text-blue-500;
+}
+
+.verified-badge i {
+  @apply text-sm;
 }
 
 .dropdown-email {
-  @apply text-gray-600 text-sm;
+  @apply text-sm text-gray-600;
 }
 
+/* Quick Stats */
+.quick-stats {
+  @apply flex justify-around py-4 px-5 bg-gray-50;
+}
+
+.stat-item {
+  @apply text-center;
+}
+
+.stat-value {
+  @apply block text-xl font-bold text-gray-800;
+}
+
+.stat-label {
+  @apply block text-xs text-gray-500 mt-1;
+}
+
+/* Dropdown Divider */
 .dropdown-divider {
-  @apply h-px bg-gray-200;
+  @apply h-px bg-gray-100;
 }
 
 /* Menu Items */
@@ -105,88 +252,252 @@
 }
 
 .dropdown-item {
-  @apply flex items-center gap-3 px-6 py-3 text-gray-700;
+  @apply flex items-center gap-3 px-5 py-3 text-gray-700;
   @apply hover:bg-gray-50 transition-colors duration-150;
-  @apply text-sm no-underline;
+  @apply text-sm no-underline cursor-pointer;
+  @apply w-full text-left bg-transparent border-0;
 }
 
-.dropdown-item i {
-  @apply text-gray-400 w-4 text-base;
+.dropdown-item:hover {
+  @apply text-blue-600;
 }
 
-.dropdown-item:hover i {
-  @apply text-gray-600;
+.dropdown-icon {
+  @apply w-5 h-5 text-gray-400;
 }
 
-/* Logout Section */
-.dropdown-logout {
-  @apply p-2;
+.dropdown-item:hover .dropdown-icon {
+  @apply text-blue-600;
 }
 
-.logout-button {
-  @apply w-full flex items-center gap-3 px-4 py-3 text-red-600;
-  @apply hover:bg-red-50 rounded-lg transition-colors duration-150;
-  @apply text-sm font-medium text-left;
+.dropdown-text {
+  @apply flex-1;
 }
 
-.logout-button i {
-  @apply w-4 text-base;
+/* Logout Item */
+.dropdown-item.logout {
+  @apply text-red-600 hover:bg-red-50;
 }
 
-/* Responsive Design */
+.dropdown-item.logout .dropdown-icon {
+  @apply text-red-400;
+}
+
+.dropdown-item.logout:hover .dropdown-icon {
+  @apply text-red-600;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  @apply lg:hidden w-10 h-10 rounded-xl bg-gray-50 text-gray-600;
+  @apply hover:bg-blue-50 hover:text-blue-600;
+  @apply flex items-center justify-center transition-all duration-200;
+  @apply border-0 cursor-pointer;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .profile-info {
-    @apply hidden;
+  .header-container {
+    @apply px-4 py-3;
+  }
+  
+  .welcome-text {
+    @apply text-lg;
+  }
+  
+  .notification-dropdown {
+    @apply w-full max-w-sm right-0 left-auto;
+    @apply mx-4;
   }
   
   .profile-dropdown-list {
-    @apply w-64 right-0;
+    @apply w-full max-w-sm right-0 left-auto;
+    @apply mx-4;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .admin-header {
+    @apply bg-gray-900 border-gray-800;
+  }
+  
+  .welcome-text {
+    @apply text-gray-100;
+  }
+  
+  .date-text {
+    @apply text-gray-400;
+  }
+  
+  .search-input {
+    @apply bg-gray-800 border-gray-700 text-gray-200 placeholder-gray-500;
+    @apply focus:border-blue-500 focus:bg-gray-700;
+  }
+  
+  .notification-btn,
+  .mobile-menu-toggle {
+    @apply bg-gray-800 text-gray-300;
+    @apply hover:bg-gray-700 hover:text-blue-400;
+  }
+  
+  .profile-trigger {
+    @apply hover:bg-gray-800;
+  }
+  
+  .notification-dropdown,
+  .profile-dropdown-list {
+    @apply bg-gray-800 border-gray-700;
+  }
+  
+  .notification-header,
+  .dropdown-header {
+    @apply bg-gray-800 border-gray-700;
   }
   
   .dropdown-header {
-    @apply p-4;
+    @apply bg-gradient-to-r from-gray-800 to-gray-900;
   }
   
+  .notification-header h3,
+  .dropdown-name {
+    @apply text-gray-100;
+  }
+  
+  .mark-all-read,
+  .view-all-notifications {
+    @apply text-blue-400 hover:text-blue-300;
+  }
+  
+  .notification-item {
+    @apply hover:bg-gray-700 border-gray-700;
+  }
+  
+  .notification-item.unread {
+    @apply bg-blue-900/20;
+  }
+  
+  .notification-icon {
+    @apply bg-gray-700 text-blue-400;
+  }
+  
+  .notification-title,
+  .profile-name {
+    @apply text-gray-100;
+  }
+  
+  .notification-desc,
+  .notification-time,
+  .profile-role,
+  .dropdown-email {
+    @apply text-gray-400;
+  }
+  
+  .notification-footer,
+  .quick-stats {
+    @apply bg-gray-900;
+  }
+  
+  .dropdown-item {
+    @apply text-gray-300 hover:bg-gray-700;
+  }
+  
+  .dropdown-item:hover {
+    @apply text-blue-400;
+  }
+  
+  .dropdown-icon {
+    @apply text-gray-500;
+  }
+  
+  .dropdown-item:hover .dropdown-icon {
+    @apply text-blue-400;
+  }
+  
+  .dropdown-item.logout {
+    @apply text-red-400 hover:bg-red-900/20;
+  }
+  
+  .dropdown-item.logout .dropdown-icon {
+    @apply text-red-500;
+  }
+  
+  .stat-value {
+    @apply text-gray-100;
+  }
+  
+  .stat-label {
+    @apply text-gray-400;
+  }
+  
+  .dropdown-divider {
+    @apply bg-gray-700;
+  }
+  
+  .profile-avatar,
   .dropdown-avatar {
-    @apply h-12 w-12 text-base;
+    @apply bg-gradient-to-br from-blue-600 to-blue-700;
   }
 }
 
-@media (max-width: 640px) {
-  .admin-navbar {
-    @apply px-4 py-2;
-  }
-  
-  .profile-dropdown-list {
-    @apply w-60;
-  }
-}
-
-/* Animation */
+/* Animation Classes */
 @keyframes slideDown {
   from {
+    transform: translateY(-10px);
     opacity: 0;
-    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 
-.profile-dropdown-list[aria-expanded="true"] {
-  animation: slideDown 0.2s ease-out;
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
 }
 
-/* Hover Effects */
-.profile-trigger:hover .profile-arrow {
-  @apply transform rotate-180;
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
 }
 
-.notification-btn:hover {
-  @apply transform scale-105;
+/* Utility Classes */
+.header-divider {
+  @apply w-px h-8 bg-gray-200 mx-2;
 }
 
-.profile-avatar:hover {
-  @apply transform scale-105;
+/* Focus States */
+.notification-btn:focus-visible,
+.profile-trigger:focus-visible,
+.dropdown-item:focus-visible,
+.mark-all-read:focus-visible {
+  @apply outline-none ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Loading States */
+.header-skeleton {
+  @apply animate-pulse;
+}
+
+.skeleton-text {
+  @apply h-4 bg-gray-200 rounded w-full;
+}
+
+.skeleton-circle {
+  @apply w-10 h-10 bg-gray-200 rounded-full;
+}
+
+/* Print Styles */
+@media print {
+  .admin-header {
+    @apply hidden;
+  }
 }

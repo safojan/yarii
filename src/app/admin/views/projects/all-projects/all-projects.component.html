@@ -31,13 +31,12 @@
     </div>
   </div>
 
-  <!-- Loading spinner -->
-  <div *ngIf="loading" class="flex justify-center my-8">
-    <div class="spinner">
-      <div class="double-bounce1"></div>
-      <div class="double-bounce2"></div>
-    </div>
-  </div>
+  <!-- Loader -->
+  <app-loader 
+  *ngIf="loading"
+  [size]="300"
+  >
+</app-loader>
   
   <!-- Error message -->
   <div *ngIf="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded shadow-sm">

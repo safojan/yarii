@@ -1,0 +1,11 @@
+<div [class]="containerClasses">
+  <div class="loader" [ngStyle]="loaderStyle">
+    <div class="loader-inner">
+      <div 
+        *ngFor="let block of blocksArray; let i = index"
+        class="loader-block"
+        [ngStyle]="getBlockStyleWithDelay(i)">
+      </div>
+    </div>
+  </div>
+</div>

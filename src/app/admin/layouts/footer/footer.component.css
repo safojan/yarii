@@ -1,0 +1,152 @@
+/* Modern Minimal Footer */
+.admin-footer {
+    @apply bg-white border-t border-gray-100;
+    @apply fixed bottom-0 right-0 z-30;
+    @apply h-12 md:h-14;
+    @apply left-0 md:left-20 lg:left-64; /* Accounts for sidebar width */
+    @apply transition-all duration-300 ease-in-out; /* Smooth transition when sidebar toggles */
+  }
+  
+  .footer-container {
+    @apply h-full max-w-full px-4 md:px-6 lg:px-8;
+    @apply flex items-center;
+  }
+  
+  .footer-content {
+    @apply w-full flex flex-col md:flex-row items-center justify-between;
+    @apply text-xs md:text-sm text-gray-600;
+  }
+  
+  /* Left Section */
+  .footer-left {
+    @apply hidden md:flex items-center gap-2;
+  }
+  
+  .copyright {
+    @apply text-gray-500;
+  }
+  
+  .version {
+    @apply text-gray-400 font-mono text-xs;
+  }
+  
+  /* Center Section */
+  .footer-center {
+    @apply flex items-center gap-1.5;
+  }
+  
+  .made-with {
+    @apply text-gray-500;
+  }
+  
+  .heart-icon {
+    @apply text-red-500 animate-pulse text-sm;
+  }
+  
+  .developer {
+    @apply text-gray-600;
+  }
+  
+  .developer strong {
+    @apply font-semibold text-gray-800;
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent;
+  }
+  
+  /* Right Section */
+  .footer-right {
+    @apply hidden md:flex items-center gap-2;
+  }
+  
+  .footer-link {
+    @apply text-gray-500 hover:text-blue-600 transition-colors duration-200;
+    @apply no-underline;
+  }
+  
+  .separator {
+    @apply text-gray-300 mx-1;
+  }
+  
+  .status {
+    @apply flex items-center gap-1.5 text-gray-500;
+  }
+  
+  .status-icon {
+    @apply text-green-500 text-xs animate-pulse;
+  }
+  
+  /* Sidebar State Adjustments */
+  /* When sidebar is collapsed */
+  .sidebar-collapsed .admin-footer {
+    @apply md:left-20; /* Mini sidebar width */
+  }
+  
+  /* When sidebar is expanded */
+  .sidebar-expanded .admin-footer {
+    @apply lg:left-64; /* Full sidebar width */
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .admin-footer {
+      @apply left-0; /* Full width on mobile */
+    }
+    
+    .footer-content {
+      @apply justify-center;
+    }
+    
+    .footer-center {
+      @apply text-xs;
+    }
+  }
+  
+  /* Dark Mode Support */
+  @media (prefers-color-scheme: dark) {
+    .admin-footer {
+      @apply bg-gray-900 border-gray-800;
+    }
+    
+    .footer-content {
+      @apply text-gray-400;
+    }
+    
+    .copyright,
+    .made-with {
+      @apply text-gray-500;
+    }
+    
+    .version {
+      @apply text-gray-600;
+    }
+    
+    .developer {
+      @apply text-gray-400;
+    }
+    
+    .developer strong {
+      @apply text-gray-200;
+      @apply bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent;
+    }
+    
+    .footer-link {
+      @apply text-gray-500 hover:text-blue-400;
+    }
+    
+    .separator {
+      @apply text-gray-700;
+    }
+    
+    .status {
+      @apply text-gray-500;
+    }
+  }
+  
+  /* Hover Effects */
+  .footer-center:hover .heart-icon {
+    @apply scale-125 transition-transform duration-200;
+  }
+  
+  /* Z-index hierarchy */
+  /* Sidebar: z-40 */
+  /* Footer: z-30 (below sidebar) */
+  /* Header: z-50 (above everything) */

@@ -176,4 +176,20 @@ export class UserService {
   isUserLoaded(): boolean {
     return this.user !== null;
   }
+
+  //get user by userid
+  getUserById(userId: number): Observable<IUser> {
+    return this.httpClient.get<IUser>(`/users/${userId}`).pipe(
+      retry(2),
+      tap((user: IUser) => {
+        console.log('UserService: User fetched by ID:', user);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('UserService: Failed to fetch user by ID', error);
+        return throwError(() => new Error('Failed to fetch user by ID'));
+      })
+    );
+  }
+  
 }
+ 

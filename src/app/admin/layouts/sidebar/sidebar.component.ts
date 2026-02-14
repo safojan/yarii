@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
   ViewEncapsulation,
+  HostListener,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -21,7 +22,7 @@ import { AdminRoutes, ElementRoutes, SettingRoutes } from '../../admin.routes';
   encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
-  sidebarIsCollapsed: boolean = true;
+  sidebarIsCollapsed: boolean = false;
   readonly appRoutes = AppRoutes;
   readonly adminRoutes = AdminRoutes;
   readonly settingRoutes = SettingRoutes;
@@ -36,7 +37,9 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.checkScreenSize();
+  }
 
   ngAfterViewInit(): void {
     this.subMenuToggleHandlerOnRouteChange();
@@ -47,6 +50,29 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  checkScreenSize(): void {
+    const sidebar = this.elementRef.nativeElement.parentElement;
+    
+    if (window.innerWidth < 768) {
+      // Mobile - hide sidebar by default
+      this.sidebarIsCollapsed = true;
+      sidebar?.setAttribute('aria-expanded', 'false');
+    } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
+      // Tablet - show collapsed sidebar
+      this.sidebarIsCollapsed = true;
+      sidebar?.setAttribute('aria-expanded', 'false');
+    } else {
+      // Desktop - show expanded sidebar
+      this.sidebarIsCollapsed = false;
+      sidebar?.setAttribute('aria-expanded', 'true');
+    }
   }
 
   subMenuToggleHandler = (event: MouseEvent): void => {
@@ -61,7 +87,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   subMenuToggleHandlerOnPageReload = (): void => {
     const elem = this.elementRef.nativeElement
       .querySelector('[aria-current="page"]')
-      .closest('ul.sub-menu-item') as Element;
+      ?.closest('ul.sub-menu-item') as Element;
 
     const subMenu = elem?.previousSibling as Element;
 
@@ -77,12 +103,18 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
           `[href='${event.url}']`
         ) as Element;
 
-        if (elem.closest('ul.sub-menu-item')) return;
+        if (elem?.closest('ul.sub-menu-item')) return;
 
         subMenu.forEach((subMenu: Element) => {
           if (subMenu.getAttribute('aria-expanded') == 'true')
             subMenu.setAttribute('aria-expanded', 'false');
         });
+
+        // Close sidebar on mobile after navigation
+        if (window.innerWidth < 768) {
+          const sidebar = this.elementRef.nativeElement.parentElement;
+          sidebar?.setAttribute('aria-expanded', 'false');
+        }
       }
     });
   };

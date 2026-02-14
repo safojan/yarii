@@ -28,6 +28,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./employee/employee.module').then((m) => m.AdminModule),
   },
+  { path: 'donations', loadChildren: () => import('./public/donations/donations.module').then(m => m.DonationsModule) },
   {
     path: '**',
     component: PageNotFoundComponent,

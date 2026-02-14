@@ -5,6 +5,7 @@ import { ProjectsContainerComponent } from './all-projects/layout/projects/proje
 import { ProjectEditComponent } from './all-projects/project-edit/project-edit.component';
 import { ProjectAddComponent } from './all-projects/project-add/project-add.component';
 import { ProjectTypesAddComponent } from './all-projects/project-types-add/project-types-add.component';
+import{RichTextEditorModule} from "src/app/shared/components/rich-text-editor/rich-text-editor.module"
 
 @NgModule({
   declarations: [],
@@ -16,6 +17,8 @@ import { ProjectTypesAddComponent } from './all-projects/project-types-add/proje
     ProjectEditComponent,
     ProjectAddComponent,
     ProjectTypesAddComponent,
+    RichTextEditorModule
+    
   ],
 })
 export class ProjectsModule {}

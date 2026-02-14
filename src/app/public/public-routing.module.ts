@@ -9,10 +9,13 @@ const routes: Routes = [
     title: 'Home',
     component: HomeComponent,
   },
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-  // },
+  {
+    path: '',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },{
+    path : 'donate',
+    loadChildren: () => import('./donations/donations.module').then((m) => m.DonationsModule),
+  }
 ];
 
 @NgModule({

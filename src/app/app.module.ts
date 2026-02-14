@@ -9,9 +9,13 @@ import { AppComponent } from './app.component';
 import { PublicModule } from './public/public.module';
 import { PreloaderComponent } from './shared/components/preloader/preloader.component';
 
+
+
+
 import { httpInterceptorProviders } from './_core/interceptors/interceptors.provider';
 import { StrategyProviders } from './_core/strategies/strategy.providers';
 import { UtilsProviders } from './shared/utils/utils.providers';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +27,7 @@ import { UtilsProviders } from './shared/utils/utils.providers';
     BrowserAnimationsModule,
     HttpClientModule,
     PreloaderComponent,
+
   ],
   providers: [httpInterceptorProviders, StrategyProviders, UtilsProviders],
   bootstrap: [AppComponent],

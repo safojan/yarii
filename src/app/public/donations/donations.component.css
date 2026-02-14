@@ -1,0 +1,593 @@
+/* src/app/donations/donations.component.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .donation-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+    background: transparent;
+  }
+  
+  .donation-container {
+    width: 100%;
+    max-width: 900px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+  }
+  
+  /* Progress Header */
+  .progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #fafbfc;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+  }
+  
+  .step-item.active {
+    opacity: 1;
+  }
+  
+  .step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    color: #6b7280;
+    transition: all 0.3s ease;
+  }
+  
+  .step-item.active .step-circle {
+    border-color: #7c3aed;
+    color: #7c3aed;
+    background: #ffffff;
+  }
+  
+  .step-item.completed .step-circle {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: #ffffff;
+  }
+  
+  .step-label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  
+  .step-item.active .step-label {
+    color: #111827;
+  }
+  
+  .step-connector {
+    width: 60px;
+    height: 2px;
+    background: #e5e7eb;
+    margin: 0 -10px;
+    margin-bottom: 28px;
+    transition: background 0.3s ease;
+  }
+  
+  .step-connector.active {
+    background: #7c3aed;
+  }
+  
+  /* Form Content */
+  .form-content {
+    padding: 40px;
+  }
+  
+  .step-panel {
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .step-heading {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+  }
+  
+  .step-description {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 32px;
+  }
+  
+  /* Amount Selection */
+  .amount-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  
+  .amount-card {
+    padding: 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 2px;
+  }
+  
+  .amount-card:hover {
+    border-color: #7c3aed;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+  }
+  
+  .amount-card.selected {
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: #ffffff;
+  }
+  
+  .amount-card .currency {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .amount-card .value {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  
+  .custom-amount {
+    margin-bottom: 24px;
+  }
+  
+  .custom-amount label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  
+  .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-prefix {
+    position: absolute;
+    left: 16px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    padding-left: 32px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  }
+  
+  /* Frequency Toggle */
+  .frequency-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  
+  .radio-card {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .radio-card input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .radio-content {
+    padding: 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    display: flex;
+    gap: 12px;
+    transition: all 0.2s ease;
+  }
+  
+  .radio-card:hover .radio-content {
+    border-color: #7c3aed;
+    background: #f9f5ff;
+  }
+  
+  .radio-card input:checked + .radio-content {
+    border-color: #7c3aed;
+    background: #f9f5ff;
+  }
+  
+  .radio-indicator {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .radio-card input:checked + .radio-content .radio-indicator {
+    border-color: #7c3aed;
+  }
+  
+  .radio-card input:checked + .radio-content .radio-indicator::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #7c3aed;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .radio-content strong {
+    display: block;
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 4px;
+  }
+  
+  .radio-content small {
+    font-size: 12px;
+    color: #6b7280;
+  }
+  
+  /* Form Grid */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+  }
+  
+  .form-group .form-control {
+    padding-left: 16px;
+  }
+  
+  textarea.form-control {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  /* Checkbox */
+  .checkbox-group {
+    grid-column: 1 / -1;
+  }
+  
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #374151;
+  }
+  
+  .checkbox input {
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .checkbox-mark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  
+  .checkbox input:checked + .checkbox-mark {
+    background: #7c3aed;
+    border-color: #7c3aed;
+  }
+  
+  .checkbox input:checked + .checkbox-mark::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    top: 2px;
+    left: 6px;
+  }
+  
+  /* Payment Form */
+  .payment-form {
+    max-width: 600px;
+    align-items: center;
+    
+  }
+  
+  .stripe-element {
+    padding: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    min-height: 200px;
+    margin-bottom: 20px;
+  }
+  
+  .security-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #6b7280;
+  }
+  
+  .security-info svg {
+    flex-shrink: 0;
+    stroke: #10b981;
+  }
+  
+  /* Summary Card */
+  .summary-card {
+    background: #f9fafb;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .summary-label {
+    font-size: 14px;
+    color: #6b7280;
+  }
+  
+  .summary-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+  }
+  
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #111827;
+  }
+  
+  .total-amount {
+    color: #7c3aed;
+    font-size: 20px;
+  }
+  
+  .terms-notice {
+    padding: 16px;
+    background: #fef3c7;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #92400e;
+    text-align: center;
+  }
+  
+  /* Navigation */
+  .form-navigation {
+    display: flex;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .btn-back,
+  .btn-next {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-back {
+    background: #ffffff;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+  }
+  
+  .btn-back:hover {
+    background: #f9fafb;
+    color: #111827;
+  }
+  
+  .btn-next {
+    background: #7c3aed;
+    color: #ffffff;
+  }
+  
+  .btn-next:hover:not(:disabled) {
+    background: #6d28d9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  }
+  
+  .btn-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .nav-spacer {
+    flex: 1;
+  }
+  
+  /* Success/Error States */
+  .success-state,
+  .error-state {
+    padding: 60px 40px;
+    text-align: center;
+  }
+  
+  .success-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px;
+    color: #10b981;
+  }
+  
+  .error-icon {
+    font-size: 60px;
+    margin-bottom: 24px;
+  }
+  
+  .success-state h2,
+  .error-state h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 12px;
+  }
+  
+  .success-state p,
+  .error-state p {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 32px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .success-state .btn-primary,
+  .error-state .btn-primary {
+    padding: 12px 32px;
+    background: #7c3aed;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .success-state .btn-primary:hover,
+  .error-state .btn-primary:hover {
+    background: #6d28d9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  }
+  
+  /* Responsive */
+  @media (max-width: 640px) {
+    .donation-wrapper {
+      padding: 20px 16px;
+    }
+  
+    .form-content {
+      padding: 24px 20px;
+    }
+  
+    .amount-options {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .frequency-toggle {
+      grid-template-columns: 1fr;
+    }
+  
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .step-connector {
+      width: 40px;
+    }
+  
+    .progress-header {
+      padding: 24px 16px;
+    }
+  
+    .step-label {
+      font-size: 11px;
+    }
+  }

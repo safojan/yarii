@@ -8,11 +8,12 @@ import { ProjectsService, Project } from 'src/app/shared/services/projects.servi
 import { AppRoutes } from 'src/app/app.routes';
 import { AdminRoutes } from 'src/app/admin/admin.routes';
 import { pageTransition } from 'src/app/shared/utils/animations';
+import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-all-projects',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule,LoaderComponent],
   templateUrl: './all-projects.component.html',
   styleUrls: ['./all-projects.component.css'],
   animations: [pageTransition],

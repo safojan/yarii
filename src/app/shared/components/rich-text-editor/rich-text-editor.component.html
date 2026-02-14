@@ -1,0 +1,70 @@
+<!-- rich-text-editor.component.html -->
+<div class="rich-text-editor">
+    <!-- Toolbar -->
+    <div class="editor-toolbar" *ngIf="!isReadOnly">
+      <!-- Heading dropdown -->
+      <div class="toolbar-item dropdown">
+        <button type="button" class="toolbar-btn dropdown-toggle">
+          Body 1
+          <span class="dropdown-icon">▼</span>
+        </button>
+        <div class="dropdown-menu">
+          <button type="button" class="dropdown-item" (click)="formatHeading('1')">Heading 1</button>
+          <button type="button" class="dropdown-item" (click)="formatHeading('2')">Heading 2</button>
+          <button type="button" class="dropdown-item" (click)="formatHeading('3')">Heading 3</button>
+          <button type="button" class="dropdown-item" (click)="formatBlock('<p>')">Body 1</button>
+        </div>
+      </div>
+      
+      <!-- Formatting buttons -->
+      <div class="toolbar-divider"></div>
+      <button type="button" class="toolbar-btn" title="Bold" (click)="formatBold()">
+        <b>B</b>
+      </button>
+      <button type="button" class="toolbar-btn" title="Italic" (click)="formatItalic()">
+        <i>I</i>
+      </button>
+      <button type="button" class="toolbar-btn" title="Underline" (click)="formatUnderline()">
+        <u>U</u>
+      </button>
+      
+      <div class="toolbar-divider"></div>
+      <button type="button" class="toolbar-btn" title="Bulleted List" (click)="formatBulletList()">
+        <span>•</span>
+      </button>
+      <button type="button" class="toolbar-btn" title="Numbered List" (click)="formatNumberedList()">
+        <span>1.</span>
+      </button>
+      
+      <div class="toolbar-divider"></div>
+      <button type="button" class="toolbar-btn" title="Quote" (click)="formatQuote()">
+        <span>"</span>
+      </button>
+      <button type="button" class="toolbar-btn" title="Code" (click)="formatCode()">
+        <span>&lt;/&gt;</span>
+      </button>
+      <button type="button" class="toolbar-btn" title="Link" (click)="insertLink()">
+        <span>↗</span>
+      </button>
+      
+      <div class="toolbar-divider"></div>
+      <button type="button" class="toolbar-btn danger" title="Clear Formatting" (click)="clearFormatting()">
+        <span>🗑</span>
+      </button>
+    </div>
+    
+    <!-- Editable content area -->
+    <div 
+      #editor
+      class="editor-content"
+      [ngClass]="{'placeholder-visible': showPlaceholder, 'read-only': isReadOnly}"
+      [attr.contenteditable]="!isReadOnly"
+      [style.min-height]="config.minHeight"
+      [style.max-height]="config.maxHeight">
+    </div>
+    
+    <!-- Placeholder text -->
+    <div class="placeholder" *ngIf="showPlaceholder && !isReadOnly">
+      {{ config.placeholder }}
+    </div>
+  </div>

@@ -1,32 +1,86 @@
-<header class="bg-white py-3 px-8 shadow-[0_5px_5px_-5px] shadow-gray-200 sticky top-0 admin-navbar">
-  <div class="flex justify-between items-center">
-    <div class="flex justify-start items-center gap-x-3">
-      <!-- Left side can be used for breadcrumbs or page title -->
+<header class="admin-header">
+  <div class="header-container">
+    <!-- Left Section -->
+    <div class="header-left">
+      <!-- Welcome Message -->
+      <div class="welcome-section">
+        <h2 class="welcome-text">{{ getGreeting() }}, {{ displayName }}</h2>
+        
+        <p class="date-text">{{ currentTime | date:'EEEE, MMMM d, y' }}</p>
+      </div>
     </div>
     
-    <div class="flex justify-end items-center gap-x-3">
+    <!-- Right Section -->
+    <div class="header-right">
+      <!-- Search Bar (Desktop) -->
+      <div class="search-container">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" placeholder="Search..." class="search-input">
+      </div>
+
       <!-- Notification Bell -->
-      <div class="relative inline-block">
+      <div class="notification-container">
         <button type="button" class="notification-btn">
           <i class="bi bi-bell"></i>
           <span class="notification-badge">3</span>
         </button>
+        
+        <!-- Notification Dropdown -->
+        <div class="notification-dropdown">
+          <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="mark-all-read">Mark all as read</button>
+          </div>
+          <div class="notification-list">
+            <div class="notification-item unread">
+              <div class="notification-icon">
+                <i class="bi bi-calendar-check"></i>
+              </div>
+              <div class="notification-content">
+                <p class="notification-title">New event scheduled</p>
+                <p class="notification-desc">Community outreach program tomorrow</p>
+                <span class="notification-time">2 hours ago</span>
+              </div>
+            </div>
+            <div class="notification-item unread">
+              <div class="notification-icon">
+                <i class="bi bi-people"></i>
+              </div>
+              <div class="notification-content">
+                <p class="notification-title">New volunteer joined</p>
+                <p class="notification-desc">Sarah Johnson has joined your team</p>
+                <span class="notification-time">5 hours ago</span>
+              </div>
+            </div>
+            <div class="notification-item">
+              <div class="notification-icon">
+                <i class="bi bi-check-circle"></i>
+              </div>
+              <div class="notification-content">
+                <p class="notification-title">Project completed</p>
+                <p class="notification-desc">Water well project finished successfully</p>
+                <span class="notification-time">1 day ago</span>
+              </div>
+            </div>
+          </div>
+          <div class="notification-footer">
+            <a href="#" class="view-all-notifications">View all notifications</a>
+          </div>
+        </div>
       </div>
 
       <!-- Profile Dropdown -->
-      <div class="relative inline-block profile-dropdown">
-        <div class="flex items-center">
-          <button type="button" (click)="onClickProfile()" class="profile-trigger">
-            <div class="profile-avatar">
-              <span class="avatar-text">{{ this.userService.getCurrentUser()?.name?.charAt(0) }}</span>
-            </div>
-            <div class="profile-info">
-              <p class="profile-name">{{ userService.getCurrentUser()?.name }}</p>
-              <p class="profile-role">{{ userService.getCurrentUser()?.role }}</p>
-            </div>
-            <i class="bi bi-chevron-down profile-arrow"></i>
-          </button>
-        </div>
+      <div class="profile-dropdown">
+        <button type="button" (click)="onClickProfile()" class="profile-trigger">
+          <div class="profile-avatar">
+            <span class="avatar-text">{{ userService.getCurrentUser()?.name?.charAt(0) }}</span>
+          </div>
+          <div class="profile-info">
+            <p class="profile-name">{{ userService.getCurrentUser()?.name }}</p>
+            <!-- <p class="profile-role">{{ userService.getCurrentUser()?.role }}</p> -->
+          </div>
+          <i class="bi bi-chevron-down profile-arrow"></i>
+        </button>
 
         <!-- Dropdown Menu -->
         <div class="profile-dropdown-list" aria-expanded="false">
@@ -39,10 +93,28 @@
               <div class="dropdown-name-section">
                 <span class="dropdown-name">{{ userService.getCurrentUser()?.name }}</span>
                 <span class="verified-badge">
-                  <i class="bi bi-check2-circle"></i>
+                  <i class="bi bi-patch-check-fill"></i>
                 </span>
               </div>
               <div class="dropdown-email">{{ userService.getCurrentUser()?.email }}</div>
+            </div>
+          </div>
+
+          <div class="dropdown-divider"></div>
+
+          <!-- Quick Stats -->
+          <div class="quick-stats">
+            <div class="stat-item">
+              <span class="stat-value">12</span>
+              <span class="stat-label">Projects</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">48</span>
+              <span class="stat-label">Events</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">156</span>
+              <span class="stat-label">Volunteers</span>
             </div>
           </div>
 
@@ -52,23 +124,21 @@
           <div class="dropdown-menu">
             <a href="#" class="dropdown-item">
               <i class="bi bi-person-circle"></i>
-              <span>Profile</span>
+              <span>My Profile</span>
             </a>
             <a href="#" class="dropdown-item">
-              <i class="bi bi-info-circle"></i>
-              <span>Help Center</span>
+              <i class="bi bi-gear"></i>
+              <span>Account Settings</span>
+            </a>
+            <a href="#" class="dropdown-item">
+              <i class="bi bi-question-circle"></i>
+              <span>Help & Support</span>
             </a>
           </div>
 
           <div class="dropdown-divider"></div>
 
           <!-- Logout -->
-          <div class="dropdown-logout">
-            <button type="button" (click)="onClickLogout()" class="logout-button">
-              <i class="bi bi-power"></i>
-              Logout
-            </button>
-          </div>
         </div>
       </div>
     </div>

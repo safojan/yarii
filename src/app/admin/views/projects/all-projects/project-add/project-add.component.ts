@@ -1,73 +1,128 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { pageTransition } from 'src/app/shared/utils/animations';
+// project-page.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
-  selector: 'app-project-add',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  selector: 'app-project-page',
   templateUrl: './project-add.component.html',
-  styleUrl: './project-add.component.css',
-  animations: [pageTransition],
+  standalone : true,
+  styleUrls: ['./project-add.component.css'],
 })
-export class ProjectAddComponent {
-  projectForm: FormGroup;
-  projectTypes = [
-    { id: 1, name: 'Women Developement' },
-    { id: 2, name: 'Eduaction' },
-    { id: 3, name: 'IT infrstructure' },
-  ];
-  projectStatuses = [
-    { id: 1, name: 'Active' },
-    { id: 2, name: 'Inactive' },
-    { id: 3, name: 'compelete' },
-  ];
-  projectMembers = [
-    { id: 1, name: 'Member 1' },
-    { id: 2, name: 'Member 2' },
-    { id: 3, name: 'Member 3' },
-  ];
-  constructor(private fb: FormBuilder) {
-    this.projectForm = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
-      type_id: ['', Validators.required],
-      goal_amount: ['', Validators.required],
-      raised_amount: [0, Validators.required],
-      status_id: ['', Validators.required],
-      members: [[], Validators.required],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
-      details: this.fb.array([]),
+export class ProjectAddComponent implements OnInit {
+  projectId: string = '';
+  projectData: any = null;
+  isLoading: boolean = true;
+  readOnlyMode: boolean = false;
+  
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    // Get project ID from route parameters
+    this.route.params.subscribe(params => {
+      this.projectId = params['id'];
+      this.loadProject();
+    });
+    
+    // Check if we're in read-only mode (optional)
+    this.route.queryParams.subscribe(params => {
+      this.readOnlyMode = params['mode'] === 'view';
     });
   }
 
-  ngOnInit(): void {}
-
-  get details(): FormArray {
-    return this.projectForm.get('details') as FormArray;
+  /**
+   * Load project data (simulated)
+   */
+  loadProject(): void {
+    this.isLoading = true;
+    
+    // Simulate API call to get project data
+    setTimeout(() => {
+      // For a new project, we'd provide empty initial data
+      if (this.projectId === 'new') {
+        this.projectData = {
+          time: new Date().getTime(),
+          blocks: [
+            {
+              type: "header",
+              data: {
+                text: "New Project",
+                level: 2
+              }
+            },
+            {
+              type: "paragraph",
+              data: {
+                text: "Start typing your content here..."
+              }
+            }
+          ]
+        };
+        this.projectId = 'project_' + Math.floor(Math.random() * 10000);
+      } else {
+        // For existing projects, load saved data
+        // This is where you would make an API call
+        this.projectData = this.getSavedProject(this.projectId);
+      }
+      
+      this.isLoading = false;
+    }, 1000);
   }
 
-  addField(): void {
-    const detailGroup = this.fb.group({
-      key: [''],
-      value: [''],
-    });
-    this.details.push(detailGroup);
+  /**
+   * Simulated method to get saved project data
+   */
+  getSavedProject(id: string): any {
+    // In a real app, this would be an API call
+    const savedData = localStorage.getItem(`project_${id}`);
+    if (savedData) {
+      return JSON.parse(savedData);
+    }
+    
+    // Return default data if no saved project exists
+    return {
+      time: new Date().getTime(),
+      blocks: [
+        {
+          type: "header",
+          data: {
+            text: "Project " + id,
+            level: 2
+          }
+        },
+        {
+          type: "paragraph",
+          data: {
+            text: "This is a sample project."
+          }
+        }
+      ]
+    };
   }
 
-  removeField(index: number): void {
-    this.details.removeAt(index);
+  /**
+   * Handle save event from editor
+   */
+  onProjectSave(projectData: any): void {
+    // Save to localStorage (simulated)
+    localStorage.setItem(`project_${this.projectId}`, JSON.stringify(projectData.content));
+    
+    // Display success message (you might use a toast or notification service)
+    console.log('Project saved successfully!');
+    
+    // You could redirect after saving if needed
+    // this.router.navigate(['/projects']);
   }
 
-  saveProject(): void {
-    console.log(this.projectForm.value);
+  /**
+   * Handle update event from editor
+   */
+  onProjectUpdate(): void {
+    // This is triggered on every content change
+    // You might implement auto-save functionality here
+    console.log('Content updated');
   }
 }

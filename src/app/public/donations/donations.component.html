@@ -1,0 +1,239 @@
+<!-- src/app/donations/donations.component.html -->
+<div class="donation-wrapper">
+    <div class="donation-container">
+      <!-- Progress Steps -->
+      <div class="progress-header">
+        <div class="step-item" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+          <div class="step-circle">
+            <span *ngIf="currentStep <= 1">1</span>
+            <span *ngIf="currentStep > 1">✓</span>
+          </div>
+          <span class="step-label">Amount</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 1"></div>
+        
+        <div class="step-item" [class.active]="currentStep >= 2" [class.completed]="currentStep > 2">
+          <div class="step-circle">
+            <span *ngIf="currentStep <= 2">2</span>
+            <span *ngIf="currentStep > 2">✓</span>
+          </div>
+          <span class="step-label">Details</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 2"></div>
+        
+        <div class="step-item" [class.active]="currentStep >= 3" [class.completed]="currentStep > 3">
+          <div class="step-circle">
+            <span *ngIf="currentStep <= 3">3</span>
+            <span *ngIf="currentStep > 3">✓</span>
+          </div>
+          <span class="step-label">Payment</span>
+        </div>
+        <div class="step-connector" [class.active]="currentStep > 3"></div>
+        
+        <div class="step-item" [class.active]="currentStep >= 4">
+          <div class="step-circle">4</div>
+          <span class="step-label">Confirm</span>
+        </div>
+      </div>
+  
+      <!-- Success Message -->
+      <div class="success-state" *ngIf="donationSuccess">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 12l2 2 4-4"></path>
+          </svg>
+        </div>
+        <h2>Thank you for your donation!</h2>
+        <p>Your generosity makes a difference. We've sent a receipt to your email.</p>
+        <button class="btn-primary" (click)="donateAgain()">Make Another Donation</button>
+      </div>
+  
+      <!-- Error Message -->
+      <div class="error-state" *ngIf="donationError">
+        <div class="error-icon">⚠️</div>
+        <h2>Payment Failed</h2>
+        <p>{{ errorMessage }}</p>
+        <button class="btn-primary" (click)="tryAgain()">Try Again</button>
+      </div>
+  
+      <!-- Form Content -->
+      <div class="form-content" *ngIf="!donationSuccess && !donationError">
+        <form [formGroup]="donationForm" (ngSubmit)="currentStep === 4 ? submitDonation() : nextStep()">
+          
+          <!-- Step 1: Amount -->
+          <div class="step-panel" *ngIf="currentStep === 1">
+            <h2 class="step-heading">Choose your donation amount</h2>
+            <p class="step-description">Select a preset amount or enter your own</p>
+            
+            <div class="amount-options">
+              <button type="button" 
+                      *ngFor="let amt of [25, 50, 100, 250]"
+                      class="amount-card" 
+                      [class.selected]="donationForm.get('amount')?.value === amt"
+                      (click)="selectAmount(amt)">
+                <span class="currency">$</span>
+                <span class="value">{{amt}}</span>
+              </button>
+            </div>
+  
+            <div class="custom-amount">
+              <label>Custom Amount</label>
+              <div class="input-group">
+                <span class="input-prefix">$</span>
+                <input type="number" 
+                       formControlName="amount" 
+                       placeholder="Enter amount" 
+                       min="1"
+                       class="form-control">
+              </div>
+            </div>
+  
+            <div class="frequency-toggle">
+              <label class="radio-card">
+                <input type="radio" formControlName="donationType" value="one-time">
+                <div class="radio-content">
+                  <span class="radio-indicator"></span>
+                  <div>
+                    <strong>One-time donation</strong>
+                    <small>Make a single contribution</small>
+                  </div>
+                </div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" formControlName="donationType" value="recurring">
+                <div class="radio-content">
+                  <span class="radio-indicator"></span>
+                  <div>
+                    <strong>Monthly donation</strong>
+                    <small>Ongoing monthly support</small>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+  
+          <!-- Step 2: Contact Details -->
+          <div class="step-panel" *ngIf="currentStep === 2">
+            <h2 class="step-heading">We'd love to stay in touch</h2>
+            <p class="step-description">Please fill in the details below so we can send you a receipt</p>
+            
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" 
+                       formControlName="donorName" 
+                       placeholder="John Doe" 
+                       class="form-control">
+              </div>
+  
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" 
+                       formControlName="donorEmail" 
+                       placeholder="john@example.com" 
+                       class="form-control">
+              </div>
+  
+              <div class="form-group full-width">
+                <label>Message (Optional)</label>
+                <textarea formControlName="donorMessage" 
+                          placeholder="Share why you're supporting us..." 
+                          class="form-control" 
+                          rows="3"></textarea>
+              </div>
+  
+              <div class="checkbox-group">
+                <label class="checkbox">
+                  <input type="checkbox" formControlName="anonymous">
+                  <span class="checkbox-mark"></span>
+                  <span>Make my donation anonymous</span>
+                </label>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Step 3: Payment -->
+          <div class="step-panel" *ngIf="currentStep === 3">
+            <h2 class="step-heading">Payment Information</h2>
+            <p class="step-description">Enter your payment details securely</p>
+            
+            <div class="payment-form">
+              <div class="stripe-element">
+                <app-stripe-payment 
+                  (elementReady)="onStripeElementReady($event)"
+                  (elementError)="onStripeElementError($event)"
+                  (elementChange)="onStripeElementChange($event)">
+                </app-stripe-payment>
+              </div>
+              
+              <div class="security-info">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0110 0v4"></path>
+                </svg>
+                <span>Your payment information is encrypted and secure</span>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Step 4: Review -->
+          <div class="step-panel" *ngIf="currentStep === 4">
+            <h2 class="step-heading">Review your donation</h2>
+            <p class="step-description">Please confirm your donation details</p>
+            
+            <div class="summary-card">
+              <div class="summary-row">
+                <span class="summary-label">Donation Amount</span>
+                <span class="summary-value">${{donationForm.get('amount')?.value}}</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Frequency</span>
+                <span class="summary-value">{{donationForm.get('donationType')?.value === 'one-time' ? 'One-time' : 'Monthly'}}</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Donor Name</span>
+                <span class="summary-value">{{donationForm.get('anonymous')?.value ? 'Anonymous' : donationForm.get('donorName')?.value}}</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-label">Email</span>
+                <span class="summary-value">{{donationForm.get('donorEmail')?.value}}</span>
+              </div>
+              <div class="summary-total">
+                <span>Total Donation</span>
+                <span class="total-amount">${{donationForm.get('amount')?.value}}</span>
+              </div>
+            </div>
+  
+            <div class="terms-notice">
+              By completing this donation, you agree to our terms and conditions.
+            </div>
+          </div>
+  
+          <!-- Navigation -->
+          <div class="form-navigation">
+            <button type="button" 
+                    class="btn-back" 
+                    *ngIf="currentStep > 1" 
+                    (click)="previousStep()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Back
+            </button>
+            <div class="nav-spacer"></div>
+            <button type="submit" 
+                    class="btn-next" 
+                    [disabled]="submitting || (currentStep < 4 && !validateCurrentStep())">
+              <span *ngIf="currentStep < 4">Next Step</span>
+              <span *ngIf="currentStep === 4 && !submitting">Complete Donation</span>
+              <span *ngIf="currentStep === 4 && submitting">Processing...</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" *ngIf="currentStep < 4">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

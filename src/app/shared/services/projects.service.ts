@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, retry, tap, map } from 'rxjs/operators';
+import { IUser } from '../interfaces/user.interface';
 
 // Updated Project interface to match the actual data structure
 export interface Project {
@@ -34,6 +35,7 @@ export interface ProjectStatus {
   last_updated?: Date;
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,7 +57,7 @@ export class ProjectsService {
   }
 
   // Get status name from ID using fetched statuses
-  getStatusName(statusId: number): string {
+   getStatusName(statusId: number): string {
     const statuses = this.projectStatusesSubject.value;
     if (!statuses || statuses.length === 0) {
       console.warn('Project statuses not loaded yet when calling getStatusName');
@@ -199,4 +201,22 @@ export class ProjectsService {
     console.error('HTTP Error:', errorMessage, error);
     return throwError(() => new Error(errorMessage));
   }
+
+  //get all the people assigend on a project 
+  getAllUsersAssignedToProject(projectId: number): Observable<IUser[]> {
+    console.log('Fetching users assigned to project:', projectId);
+    return this.http.get<IUser[]>(`/projects/${projectId}/users`).pipe(
+      retry(2),
+      tap(users => console.log('Users fetched for project:', users)),
+      catchError(this.handleError)
+    );
+  }
+
+  
+
+
+
+
+
 }
+

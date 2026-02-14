@@ -24,6 +24,7 @@ import { ProjectAddComponent } from './views/projects/all-projects/project-add/p
 import { ProjectTypesAddComponent } from './views/projects/all-projects/project-types-add/project-types-add.component';
 import { ProjectEditComponent } from './views/projects/all-projects/project-edit/project-edit.component';
 import { ProjectViewComponent } from './views/projects/all-projects/project-view/project-view.component';
+import { PendingChangesGuard } from '../_core/gaurds/pending-changes.guard'
 
 const routes: Routes = [
   {
@@ -65,6 +66,7 @@ const routes: Routes = [
         title: 'View Project',
         path: ProjectRoutes.View,
         component: ProjectViewComponent,
+        canDeactivate: [PendingChangesGuard]
       },
     ],
   },
