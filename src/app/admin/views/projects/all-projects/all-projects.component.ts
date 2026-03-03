@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,11 +9,12 @@ import { AppRoutes } from 'src/app/app.routes';
 import { AdminRoutes } from 'src/app/admin/admin.routes';
 import { pageTransition } from 'src/app/shared/utils/animations';
 import { LoaderComponent } from 'src/app/shared/components/loader/loader.component';
+import { AddProjectModalComponent } from '../modals/add-project-modal/add-project-modal.component';
 
 @Component({
   selector: 'app-all-projects',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule,LoaderComponent],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, LoaderComponent, AddProjectModalComponent],
   templateUrl: './all-projects.component.html',
   styleUrls: ['./all-projects.component.css'],
   animations: [pageTransition],
@@ -28,11 +29,13 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
   sortDirection = 'asc';
   private subscription = new Subscription();
 
+  @ViewChild(AddProjectModalComponent) addProjectModal!: AddProjectModalComponent;
+
   constructor(
-    private router: Router, 
+    private router: Router,
     private commonService: CommonService,
     public projectsService: ProjectsService // Changed to public
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadProjects();
@@ -45,7 +48,7 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
   loadProjects(): void {
     this.loading = true;
     this.error = '';
-    
+
     const sub = this.projectsService.getAllProjects().subscribe({
       next: (projects) => {
         this.projects = projects;
@@ -58,14 +61,14 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     });
-    
+
     this.subscription.add(sub);
   }
 
   // Get status class for badges
   getStatusClass(statusId: number): string {
     const statusName = this.projectsService.getStatusName(statusId).toLowerCase();
-    
+
     switch (statusName) {
       case 'active':
         return 'bg-blue-100 text-blue-800';
@@ -88,10 +91,10 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
       this.filteredProjects = [...this.projects];
       return;
     }
-    
+
     const term = this.searchTerm.toLowerCase();
-    this.filteredProjects = this.projects.filter(project => 
-      project.name.toLowerCase().includes(term) || 
+    this.filteredProjects = this.projects.filter(project =>
+      project.name.toLowerCase().includes(term) ||
       project.description.toLowerCase().includes(term)
     );
   }
@@ -104,10 +107,10 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
       this.sortColumn = column;
       this.sortDirection = 'asc';
     }
-    
+
     this.filteredProjects = [...this.filteredProjects].sort((a, b) => {
       let comparison = 0;
-      
+
       // Handle different column types
       switch (column) {
         case 'name':
@@ -132,7 +135,7 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
           comparison = a.status - b.status;
           break;
       }
-      
+
       return this.sortDirection === 'asc' ? comparison : -comparison;
     });
   }
@@ -142,9 +145,9 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
     if (this.sortColumn !== column) {
       return 'bi bi-arrow-down-up text-gray-400';
     }
-    
-    return this.sortDirection === 'asc' 
-      ? 'bi bi-sort-down-alt text-blue-600' 
+
+    return this.sortDirection === 'asc'
+      ? 'bi bi-sort-down-alt text-blue-600'
       : 'bi bi-sort-up text-blue-600';
   }
 
@@ -166,13 +169,12 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
   }
 
   navigateToAddProject() {
-    this.router.navigate([
-      this.commonService.prepareRoute(
-        AppRoutes.Admin,
-        AdminRoutes.Projects,
-        'add'   
-      ),
-    ]);
+    this.addProjectModal.open();
+  }
+
+  onProjectCreated(project: Project): void {
+    console.log('Project created:', project);
+    this.loadProjects(); // Refresh the projects list
   }
 
   navigateToAddProjectType() {
@@ -210,10 +212,10 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
   deleteProject(id: number, event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    
+
     if (confirm('Are you sure you want to delete this project?')) {
       this.loading = true;
-      
+
       const sub = this.projectsService.deleteProject(id).subscribe({
         next: () => {
           this.loadProjects(); // Reload projects after deletion
@@ -224,7 +226,7 @@ export class AllProjectsComponent implements OnInit, OnDestroy {
           this.loading = false;
         }
       });
-      
+
       this.subscription.add(sub);
     }
   }
